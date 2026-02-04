@@ -1,0 +1,1056 @@
+/*VARIABLES CSS */
+
+:root {
+    /* Couleurs - seulement l'essentiel */
+    --primary-color: #FF6B35;
+    --secondary-color: #004E89;
+    --dark: #333333;
+    --gray: #666666;
+    --light-gray: #EEEEEE;
+    --white: #FFFFFF;
+    
+    /* Typographie */
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'Work Sans', sans-serif;
+}
+
+
+/* RESET DE BASE */
+
+/* On remet tout à zéro */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Les padding/border sont inclus dans la largeur */
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6; /* Espacement entre les lignes */
+    color: var(--dark);
+    background-color: var(--white);
+}
+
+/* TYPOGRAPHIE - Titres et textes */
+
+h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    color: var(--dark);
+}
+
+h1 { font-size: 3rem; }    /* 48px */
+h2 { font-size: 2.5rem; }  /* 40px */
+h3 { font-size: 1.75rem; } /* 28px */
+h4 { font-size: 1.25rem; } /* 20px */
+
+p {
+    margin-bottom: 1rem;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--secondary-color);
+}
+
+/*CONTAINER - Pour centrer le contenu*/
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto; /* Centre le container */
+    padding: 0 2rem; /* Espace sur les côtés */
+}
+
+/*NAVIGATION */
+
+.navbar {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem 0;
+    position: sticky; /* Reste en haut lors du scroll */
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between; /* Logo à gauche, menu à droite */
+    align-items: center;
+}
+
+/* Logo Web4All*/
+.logo {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--dark);
+}
+
+.logo .highlight {
+    color: var(--primary-color); /* Le "4" en orange */
+}
+
+/* Menu de navigation */
+.nav-menu {
+    display: flex;
+    list-style: none; /* Enlève les puces */
+    gap: 2rem; /* Espace entre les liens */
+}
+
+.nav-link {
+    font-weight: 500;
+    color: var(--dark);
+    padding: 0.5rem 0;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary-color);
+}
+
+/* HERO - Section d'accueil */
+
+.hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 5rem 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--dark);
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--gray);
+    margin-bottom: 2rem;
+}
+
+.hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* BOUTONS*/
+
+.btn {
+    padding: 1rem 2rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s; /* Animation douce */
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px); /* Légère montée */
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--dark);
+    border: 2px solid var(--dark);
+}
+
+.btn-secondary:hover {
+    background: var(--dark);
+    color: white;
+}
+
+.btn-small {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+}
+
+.btn-large {
+    padding: 1.2rem 3rem;
+    font-size: 1.1rem;
+}
+
+/*SECTIONS*/
+
+section {
+    padding: 5rem 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--gray);
+    margin-bottom: 3rem;
+}
+
+/* OFFRES SECTION*/
+
+.offres-section {
+    background: var(--light-gray);
+}
+
+/* Boutons de filtrage */
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.filter-btn {
+    padding: 0.8rem 2rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    background: white;
+    border: 2px solid var(--light-gray);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* Grille des offres */
+.offres-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes égales */
+    gap: 2rem;
+}
+
+/* Carte d'offre */
+.offre-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.offre-card:hover {
+    transform: translateY(-5px); /* Monte au survol */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.offre-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.offre-type {
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.offre-type.stage {
+    background: #d4edda;
+    color: #155724;
+}
+
+.offre-type.alternance {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.offre-duree {
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.offre-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.offre-company {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.offre-location {
+    color: var(--gray);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.offre-description {
+    color: var(--gray);
+    margin-bottom: 1.5rem;
+}
+
+.offre-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.tag {
+    padding: 0.3rem 0.8rem;
+    background: var(--light-gray);
+    border-radius: 6px;
+    font-size: 0.85rem;
+}
+
+/* FORMULAIRES */
+
+.form-section {
+    background: white;
+}
+
+.contact-section {
+    background: var(--light-gray);
+}
+
+.application-form,
+.contact-form {
+    max-width: 700px;
+    margin: 0 auto;
+    background: white;
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Ligne de formulaire (2 champs côte à côte) */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 colonnes égales */
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+/* Tous les champs de saisie */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--light-gray);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+}
+
+/* Changement de couleur au focus (clic dans le champ) */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.form-group textarea {
+    resize: vertical; /* On peut agrandir verticalement */
+    min-height: 120px;
+}
+
+/* Boutons radio */
+.radio-group {
+    display: flex;
+    gap: 2rem;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.radio-label input[type="radio"] {
+    margin-right: 0.5rem;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* Checkbox */
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.checkbox-label input[type="checkbox"] {
+    margin-right: 0.8rem;
+    margin-top: 0.2rem;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* Upload de fichier */
+.file-upload {
+    position: relative;
+}
+
+.file-upload input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.file-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    border: 2px dashed var(--light-gray);
+    border-radius: 8px;
+    cursor: pointer;
+    background: var(--light-gray);
+}
+
+.file-label:hover {
+    border-color: var(--primary-color);
+}
+
+.file-icon {
+    font-size: 2rem;
+}
+
+/* Notation par étoiles */
+.rating {
+    display: flex;
+    flex-direction: row-reverse; /* Pour l'effet de survol */
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.rating input[type="radio"] {
+    display: none;
+}
+
+.rating label {
+    cursor: pointer;
+    font-size: 2rem;
+    color: var(--light-gray);
+}
+
+.rating label:hover,
+.rating label:hover ~ label,
+.rating input[type="radio"]:checked ~ label {
+    color: #FFD700; /* Or */
+}
+
+/* FOOTER */
+
+.footer {
+    background: var(--dark);
+    color: white;
+    padding: 3rem 0 2rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colonnes */
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.footer-title {
+    font-size: 1.8rem;
+}
+
+.footer-section p {
+    color: #CCCCCC;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+    color: #CCCCCC;
+}
+
+.footer-links a:hover {
+    color: var(--primary-color);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #555555;
+    color: #CCCCCC;
+}
+
+/*  BANNIERE COOKIES */
+
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--dark);
+    color: white;
+    padding: 1.5rem;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 2000;
+    display: none; /* Caché par défaut */
+}
+
+.cookie-banner.show {
+    display: block; /* Affiché avec JavaScript */
+}
+
+.cookie-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.cookie-content p {
+    margin: 0;
+    flex: 1;
+}
+
+.cookie-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+/* MENTIONS LEGALES */
+
+.legal-section {
+    padding: 5rem 0;
+}
+
+.legal-container {
+    max-width: 900px;
+}
+
+.page-title {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--primary-color);
+}
+
+.legal-content {
+    background: white;
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.legal-content h2 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--primary-color);
+}
+
+.legal-content h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+}
+
+.legal-content ul {
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+.legal-content li {
+    margin-bottom: 0.5rem;
+}
+
+.legal-update {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--light-gray);
+    color: var(--gray);
+}
+
+.cookie-settings {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: var(--light-gray);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.cookie-settings h2 {
+    margin-bottom: 1rem;
+}
+
+/* RESPONSIVE - Mobile et tablette */
+
+/* Tablettes et moins (écrans de moins de 768px) */
+@media (max-width: 768px) {
+    
+    /* Titres plus petits */
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+    .hero-title { font-size: 2.5rem; }
+    .section-title { font-size: 2rem; }
+    
+    /* Navigation en colonne */
+    .nav-menu {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    /* Hero */
+    .hero {
+        min-height: 70vh;
+    }
+    
+    .hero-cta {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    /* Grille des offres : 1 colonne */
+    .offres-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Formulaires : 1 colonne */
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Footer : 1 colonne */
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Cookies */
+    .cookie-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .cookie-buttons {
+        width: 100%;
+        flex-direction: column;
+    }
+}
+
+/* Mobiles (écrans de moins de 480px) */
+@media (max-width: 480px) {
+    
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .filters {
+        flex-wrap: wrap;
+    }
+    
+    .application-form,
+    .contact-form {
+        padding: 2rem;
+    }
+}
+
+/*UTILITAIRES*/
+
+.hidden {
+    display: none !important;
+}
+
+/* Focus visible pour accessibilité */
+:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* ==========================================
+   SYSTÈME DE CARTES EXPANDABLES
+   ========================================== */
+
+/* Informations étendues - cachées par défaut */
+.extended-info {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.6s ease, opacity 0.6s ease, margin-top 0.6s ease;
+    margin-top: 0;
+}
+
+.offre-card.expanded .extended-info {
+    max-height: 1000px;
+    opacity: 1;
+    margin-top: 20px;
+}
+
+.divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #e2e8f0, transparent);
+    margin: 20px 0;
+}
+
+.extended-info h4 {
+    font-size: 1.3rem;
+    color: var(--dark);
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.company-description {
+    color: var(--gray);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.contact-info {
+    background: var(--light-gray);
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.contact-info h5 {
+    font-size: 1.1rem;
+    color: var(--dark);
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.contact-info p {
+    color: var(--gray);
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+}
+
+.btn-apply-quick {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #d85a2b 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+.btn-apply-quick:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+}
+
+.btn-apply-quick:active {
+    transform: translateY(0);
+}
+
+/* Bouton postuler initial */
+.btn-postuler {
+    background-color: transparent !important;
+    color: var(--primary-color) !important;
+    border: 2px solid var(--primary-color) !important;
+}
+
+.btn-postuler:hover {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+/* Overlay styles - Flou sur tout l'écran avec backdrop-filter */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease, visibility 0.6s ease, backdrop-filter 0.6s ease;
+    z-index: 998;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* État étendu de la carte - Animation progressive */
+.offre-card.expanded {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    width: 50vw !important;
+    max-width: 800px !important;
+    height: auto !important;
+    max-height: 80vh !important;
+    margin: 0 !important;
+    transform: translate(-50%, -50%) !important;
+    overflow-y: auto;
+    z-index: 1001 !important;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    cursor: default;
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+/* Scrollbar moderne pour la carte étendue */
+.offre-card.expanded::-webkit-scrollbar {
+    width: 8px;
+}
+
+.offre-card.expanded::-webkit-scrollbar-track {
+    background: var(--light-gray);
+    border-radius: 10px;
+}
+
+.offre-card.expanded::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    border-radius: 10px;
+}
+
+.offre-card.expanded::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+}
+
+/* Responsive pour cartes expandables */
+@media (max-width: 1200px) {
+    .offre-card.expanded {
+        width: 70vw !important;
+        max-height: 85vh !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .offre-card.expanded {
+        width: 90vw !important;
+        max-height: 90vh !important;
+        padding: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .offre-card.expanded {
+        width: 95vw !important;
+        max-height: 95vh !important;
+        padding: 20px;
+    }
+}
+
+/* Affichage au survol du parent */
+.dropdown-mega:hover .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    width: 90vw;
+    max-width: 1000px;
+    background: white;
+    display: flex;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    border-radius: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s ease-out; /* Plus fluide pour le hover */
+    z-index: 2000;
+}
+
+/* Gestion de l'affichage des grilles de droite */
+.mega-grid {
+    display: none; /* Caché par défaut */
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 20px;
+}
+
+.mega-grid.active {
+    display: grid; /* Affiché quand actif */
+}
+
+/* Style de la sidebar au survol */
+.mega-sidebar li:hover {
+    background: #ffffff;
+    color: #ff6000; /* Couleur orange style Temu */
+    font-weight: bold;
+}
+
+/* Positionnement pour que les autres liens restent visibles */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 1.5rem;
+}
+
+.dropdown-mega {
+    position: static; /* Permet au menu de s'aligner sur la barre entière */
+}
+
+/* Le Container du Mega Menu */
+.mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    width: 95vw;
+    max-width: 900px;
+    background: #fff;
+    display: flex;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    border-radius: 15px;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: 1000;
+}
+
+/* Affichage au survol */
+.dropdown-mega:hover .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Sidebar gauche */
+.mega-sidebar {
+    width: 240px;
+    background: #f8f9fa;
+    padding: 15px 0;
+    border-right: 1px solid #eee;
+}
+
+.sidebar-item {
+    padding: 12px 25px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.sidebar-item.active, .sidebar-item:hover {
+    background: #fff;
+    color: var(--primary-color);
+}
+
+/* Contenu Droite (Graphique) */
+.mega-content {
+    flex: 1;
+    padding: 30px;
+}
+
+.mega-grid {
+    display: none;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 25px;
+}
+
+.mega-grid.active {
+    display: grid;
+}
+
+/* Les petits cercles type Temu */
+.mega-item {
+    text-align: center;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.mega-item:hover {
+    transform: translateY(-5px);
+}
+
+.circle-icon {
+    width: 65px;
+    height: 65px;
+    background: #f0f2f5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin: 0 auto 10px;
+    transition: background 0.3s;
+}
+
+.mega-item:hover .circle-icon {
+    background: #ffe8e0; /* Couleur très douce proche du orange */
+}
+
+.mega-item span {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--dark);
+    display: block;
+}   

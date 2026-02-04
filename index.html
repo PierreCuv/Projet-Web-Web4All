@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Web4All - Plateforme de gestion d'offres de stages et d'alternances">
+    <title>Web4All - Stages & Alternances</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Work+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+    <div class="container">
+        <div class="nav-brand">
+            <h1 class="logo">Web<span class="highlight">4</span>All</h1>
+        </div>
+        
+        <ul class="nav-menu">
+            <li><a href="#accueil" class="nav-link active">Accueil</a></li>
+            
+            <li class="nav-item dropdown-mega">
+                <a href="#offres" class="nav-link">Offres ▼</a>
+                <div class="mega-menu" id="offresMenu">
+                    <div class="mega-sidebar">
+                        <ul>
+                            <li class="sidebar-item active" data-target="web">Développement Web</li>
+                            <li class="sidebar-item" data-target="design">Design & UX</li>
+                            <li class="sidebar-item" data-target="data">Data & IA</li>
+                            <li class="sidebar-item" data-target="marketing">Marketing</li>
+                            <li class="sidebar-item" data-target="cyber">Cybersécurité</li>
+                        </ul>
+                    </div>
+                    <div class="mega-content">
+                        <div class="mega-grid active" id="web">
+                            <div class="mega-item"><div class="circle-icon">⚛️</div><span>React JS</span></div>
+                            <div class="mega-item"><div class="circle-icon">🐘</div><span>Laravel</span></div>
+                            <div class="mega-item"><div class="circle-icon">📱</div><span>Mobile</span></div>
+                            <div class="mega-item"><div class="circle-icon">🛒</div><span>Shopify</span></div>
+                        </div>
+                        <div class="mega-grid" id="design">
+                            <div class="mega-item"><div class="circle-icon">🎨</div><span>UI Design</span></div>
+                            <div class="mega-item"><div class="circle-icon">🧠</div><span>UX Research</span></div>
+                            <div class="mega-item"><div class="circle-icon">🎬</div><span>Motion</span></div>
+                        </div>
+                        <div class="mega-grid" id="data">
+                            <div class="mega-item"><div class="circle-icon">🤖</div><span>IA / Chat</span></div>
+                            <div class="mega-item"><div class="circle-icon">📈</div><span>Data Viz</span></div>
+                            <div class="mega-item"><div class="circle-icon">🐍</div><span>Python</span></div>
+                        </div>
+                        <div class="mega-grid" id="marketing">
+                            <div class="mega-item"><div class="circle-icon">🔍</div><span>SEO</span></div>
+                            <div class="mega-item"><div class="circle-icon">📱</div><span>Social Ads</span></div>
+                            <div class="mega-item"><div class="circle-icon">📧</div><span>Strategy</span></div>
+                        </div>
+                        <div class="mega-grid" id="cyber">
+                            <div class="mega-item"><div class="circle-icon">🛡️</div><span>Audit</span></div>
+                            <div class="mega-icon-item"><div class="circle-icon">🔑</div><span>Pentest</span></div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li><a href="#postuler" class="nav-link">Postuler</a></li>
+            <li><a href="mentions-legales.html" class="nav-link">Légal</a></li>
+        </ul>
+    </div>
+</nav>
+    <!-- Hero Section -->
+    <section id="accueil" class="hero">
+        <div class="hero-background"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h2 class="hero-title">Trouvez votre stage ou alternance idéale</h2>
+                <p class="hero-subtitle">Rejoignez les meilleures entreprises tech et lancez votre carrière avec Web4All
+                </p>
+                <div class="hero-cta">
+                    <a href="#offres" class="btn btn-primary">Voir les offres</a>
+                    <a href="#postuler" class="btn btn-secondary">Postuler</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offres Section avec cartes expandables -->
+    <section id="offres" class="offres-section">
+        <div class="container">
+            <h2 class="section-title">Nos offres disponibles</h2>
+            <p class="section-subtitle">Découvrez les opportunités qui correspondent à votre profil</p>
+
+            <div class="offres-grid">
+                <!-- Offre 1 -->
+                <div class="offre-card" data-type="stage">
+                    <div class="offre-header">
+                        <span class="offre-type stage">Stage</span>
+                        <span class="offre-duree">6 mois</span>
+                    </div>
+                    <h3 class="offre-title">Développeur Web Full Stack</h3>
+                    <p class="offre-company">TechCorp Solutions</p>
+                    <p class="offre-location">📍 Paris, France</p>
+                    <p class="offre-description">Rejoignez notre équipe pour développer des applications web modernes
+                        avec React, Node.js et MongoDB.</p>
+                    <div class="offre-tags">
+                        <span class="tag">React</span>
+                        <span class="tag">Node.js</span>
+                        <span class="tag">MongoDB</span>
+                    </div>
+                    <button class="btn btn-small btn-postuler">Postuler</button>
+
+                    <!-- Informations étendues -->
+                    <div class="extended-info">
+                        <div class="divider"></div>
+                        <h4>À propos de l'entreprise</h4>
+                        <p class="company-description">
+                            TechCorp Solutions est une entreprise innovante spécialisée dans le développement
+                            d'applications web.
+                            Nous travaillons avec des clients du monde entier pour créer des solutions digitales sur
+                            mesure.
+                        </p>
+
+                        <div class="contact-info">
+                            <h5>Contact</h5>
+                            <p><strong>Entreprise:</strong> TechCorp Solutions</p>
+                            <p><strong>Téléphone:</strong> +33 1 23 45 67 89</p>
+                            <p><strong>Email:</strong> recrutement@techcorp.fr</p>
+                        </div>
+
+                        <button class="btn btn-primary btn-apply-quick">Postuler rapidement</button>
+                    </div>
+                </div>
+
+                <!-- Offre 2 -->
+                <div class="offre-card" data-type="alternance">
+                    <div class="offre-header">
+                        <span class="offre-type alternance">Alternance</span>
+                        <span class="offre-duree">12 mois</span>
+                    </div>
+                    <h3 class="offre-title">Designer UX/UI</h3>
+                    <p class="offre-company">Creative Digital</p>
+                    <p class="offre-location">📍 Lyon, France</p>
+                    <p class="offre-description">Participez à la conception d'interfaces utilisateur innovantes pour nos
+                        clients internationaux.</p>
+                    <div class="offre-tags">
+                        <span class="tag">Figma</span>
+                        <span class="tag">UI Design</span>
+                        <span class="tag">Prototypage</span>
+                    </div>
+                    <button class="btn btn-small btn-postuler">Postuler</button>
+
+                    <div class="extended-info">
+                        <div class="divider"></div>
+                        <h4>À propos de l'entreprise</h4>
+                        <p class="company-description">
+                            Creative Digital est une agence de design reconnue pour ses créations innovantes.
+                            Nous accompagnons nos clients dans la transformation digitale de leurs produits.
+                        </p>
+
+                        <div class="contact-info">
+                            <h5>Contact</h5>
+                            <p><strong>Entreprise:</strong> Creative Digital</p>
+                            <p><strong>Téléphone:</strong> +33 4 56 78 90 12</p>
+                            <p><strong>Email:</strong> jobs@creative-digital.fr</p>
+                        </div>
+
+                        <button class="btn btn-primary btn-apply-quick">Postuler rapidement</button>
+                    </div>
+                </div>
+
+                <!-- Offre 3 -->
+                <div class="offre-card" data-type="stage">
+                    <div class="offre-header">
+                        <span class="offre-type stage">Stage</span>
+                        <span class="offre-duree">4 mois</span>
+                    </div>
+                    <h3 class="offre-title">Data Analyst</h3>
+                    <p class="offre-company">DataVision Analytics</p>
+                    <p class="offre-location">📍 Nantes, France</p>
+                    <p class="offre-description">Analysez les données clients et créez des dashboards interactifs pour
+                        aider à la prise de décision.</p>
+                    <div class="offre-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">SQL</span>
+                        <span class="tag">Tableau</span>
+                    </div>
+                    <button class="btn btn-small btn-postuler">Postuler</button>
+
+                    <div class="extended-info">
+                        <div class="divider"></div>
+                        <h4>À propos de l'entreprise</h4>
+                        <p class="company-description">
+                            DataVision Analytics aide les entreprises à exploiter leurs données pour prendre de
+                            meilleures décisions.
+                            Notre expertise en data science et visualisation fait de nous un acteur clé du marché.
+                        </p>
+
+                        <div class="contact-info">
+                            <h5>Contact</h5>
+                            <p><strong>Entreprise:</strong> DataVision Analytics</p>
+                            <p><strong>Téléphone:</strong> +33 2 34 56 78 90</p>
+                            <p><strong>Email:</strong> careers@datavision.fr</p>
+                        </div>
+
+                        <button class="btn btn-primary btn-apply-quick">Postuler rapidement</button>
+                    </div>
+                </div>
+
+                <!-- Offre 4 -->
+                <div class="offre-card" data-type="alternance">
+                    <div class="offre-header">
+                        <span class="offre-type alternance">Alternance</span>
+                        <span class="offre-duree">24 mois</span>
+                    </div>
+                    <h3 class="offre-title">Développeur Mobile</h3>
+                    <p class="offre-company">AppMakers Studio</p>
+                    <p class="offre-location">📍 Bordeaux, France</p>
+                    <p class="offre-description">Créez des applications mobiles natives et cross-platform pour iOS et
+                        Android.</p>
+                    <div class="offre-tags">
+                        <span class="tag">React Native</span>
+                        <span class="tag">Flutter</span>
+                        <span class="tag">Swift</span>
+                    </div>
+                    <button class="btn btn-small btn-postuler">Postuler</button>
+
+                    <div class="extended-info">
+                        <div class="divider"></div>
+                        <h4>À propos de l'entreprise</h4>
+                        <p class="company-description">
+                            AppMakers Studio développe des applications mobiles pour des startups et grandes
+                            entreprises.
+                            Notre équipe passionnée crée des expériences utilisateur exceptionnelles.
+                        </p>
+
+                        <div class="contact-info">
+                            <h5>Contact</h5>
+                            <p><strong>Entreprise:</strong> AppMakers Studio</p>
+                            <p><strong>Téléphone:</strong> +33 5 67 89 01 23</p>
+                            <p><strong>Email:</strong> recrutement@appmakers.fr</p>
+                        </div>
+
+                        <button class="btn btn-primary btn-apply-quick">Postuler rapidement</button>
+                    </div>
+                </div>
+
+                <!-- Offre 5 -->
+                <div class="offre-card" data-type="stage">
+                    <div class="offre-header">
+                        <span class="offre-type stage">Stage</span>
+                        <span class="offre-duree">6 mois</span>
+                    </div>
+                    <h3 class="offre-title">DevOps Junior</h3>
+                    <p class="offre-company">CloudTech Systems</p>
+                    <p class="offre-location">📍 Toulouse, France</p>
+                    <p class="offre-description">Participez à l'automatisation des déploiements et à la gestion de
+                        l'infrastructure cloud.</p>
+                    <div class="offre-tags">
+                        <span class="tag">Docker</span>
+                        <span class="tag">Kubernetes</span>
+                        <span class="tag">AWS</span>
+                    </div>
+                    <button class="btn btn-small btn-postuler">Postuler</button>
+
+                    <div class="extended-info">
+                        <div class="divider"></div>
+                        <h4>À propos de l'entreprise</h4>
+                        <p class="company-description">
+                            CloudTech Systems est un leader des solutions cloud et DevOps.
+                            Nous aidons les entreprises à moderniser leur infrastructure et à automatiser leurs
+                            processus.
+                        </p>
+
+                        <div class="contact-info">
+                            <h5>Contact</h5>
+                            <p><strong>Entreprise:</strong> CloudTech Systems</p>
+                            <p><strong>Téléphone:</strong> +33 5 12 34 56 78</p>
+                            <p><strong>Email:</strong> jobs@cloudtech.fr</p>
+                        </div>
+
+                        <button class="btn btn-primary btn-apply-quick">Postuler rapidement</button>
+                    </div>
+                </div>
+
+                <!-- Offre 6 -->
+                <div class="offre-card" data-type="alternance">
+                    <div class="offre-header">
+                        <span class="offre-type alternance">Alternance</span>
+                        <span class="offre-duree">12 mois</span>
+                    </div>
+                    <h3 class="offre-title">Cybersécurité Analyst</h3>
+                    <p class="offre-company">SecureNet France</p>
+                    <p class="offre-location">📍 Paris, France</p>
+                    <p class="offre-description">Protégez nos systèmes contre les menaces et participez aux audits de
+                        sécurité.</p>
+                    <div class="offre-tags">
+                        <span class="tag">Pentesting</span>
+                        <span class="tag">SIEM</span>
+                        <span class="tag">Firewall</span>
+                    </div>
+                    <button class="btn btn-small btn-postuler">Postuler</button>
+
+                    <div class="extended-info">
+                        <div class="divider"></div>
+                        <h4>À propos de l'entreprise</h4>
+                        <p class="company-description">
+                            SecureNet France protège les entreprises contre les cybermenaces.
+                            Notre équipe d'experts en sécurité travaille 24/7 pour garantir la protection de nos
+                            clients.
+                        </p>
+
+                        <div class="contact-info">
+                            <h5>Contact</h5>
+                            <p><strong>Entreprise:</strong> SecureNet France</p>
+                            <p><strong>Téléphone:</strong> +33 1 98 76 54 32</p>
+                            <p><strong>Email:</strong> recrutement@securenet.fr</p>
+                        </div>
+
+                        <button class="btn btn-primary btn-apply-quick">Postuler rapidement</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulaire de Candidature -->
+    <section id="postuler" class="form-section">
+        <div class="container">
+            <h2 class="section-title">Postulez dès maintenant</h2>
+            <p class="section-subtitle">Remplissez le formulaire ci-dessous pour soumettre votre candidature</p>
+
+            <form class="application-form" id="applicationForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nom">Nom *</label>
+                        <input type="text" id="nom" name="nom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prenom">Prénom *</label>
+                        <input type="text" id="prenom" name="prenom" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone">Téléphone *</label>
+                        <input type="tel" id="telephone" name="telephone" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="poste">Poste souhaité *</label>
+                    <select id="poste" name="poste" required>
+                        <option value="">Sélectionnez un poste</option>
+                        <option value="dev-fullstack">Développeur Web Full Stack</option>
+                        <option value="designer-ux">Designer UX/UI</option>
+                        <option value="data-analyst">Data Analyst</option>
+                        <option value="dev-mobile">Développeur Mobile</option>
+                        <option value="devops">DevOps Junior</option>
+                        <option value="cybersec">Cybersécurité Analyst</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="type-contrat">Type de contrat *</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="type-contrat" value="stage" required>
+                            <span>Stage</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="type-contrat" value="alternance">
+                            <span>Alternance</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cv">CV (PDF, max 5Mo) *</label>
+                    <div class="file-upload">
+                        <input type="file" id="cv" name="cv" accept=".pdf" required>
+                        <label for="cv" class="file-label">
+                            <span class="file-icon">📄</span>
+                            <span class="file-text">Choisir un fichier</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lettre">Lettre de motivation (optionnel)</label>
+                    <textarea id="lettre" name="lettre" rows="6"
+                        placeholder="Parlez-nous de vous et de vos motivations..."></textarea>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="rgpd" required>
+                        <span>J'accepte que mes données soient utilisées conformément à la <a
+                                href="mentions-legales.html">politique de confidentialité</a> *</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large">Envoyer ma candidature</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">Web<span class="highlight">4</span>All</h3>
+                    <p>Votre partenaire pour trouver le stage ou l'alternance idéale dans le secteur tech.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="#accueil">Accueil</a></li>
+                        <li><a href="#offres">Offres</a></li>
+                        <li><a href="#postuler">Postuler</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Légal</h4>
+                    <ul class="footer-links">
+                        <li><a href="mentions-legales.html">Mentions légales</a></li>
+                        <li><a href="mentions-legales.html#politique">Politique de confidentialité</a></li>
+                        <li><a href="mentions-legales.html#cookies">Gestion des cookies</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: contact@web4all.fr</p>
+                    <p>Tél: +33 1 23 45 67 89</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Web4All. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Overlay pour les cartes expandables -->
+    <div class="overlay" id="overlay"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
