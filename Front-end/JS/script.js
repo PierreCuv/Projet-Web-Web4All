@@ -1,6 +1,6 @@
-// ==========================================
+
 // SYSTÈME DE CARTES EXPANDABLES
-// ==========================================
+
 
 // Sélectionner tous les éléments nécessaires
 const cards = document.querySelectorAll('.offre-card');
@@ -132,9 +132,9 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// ==========================================
+
 // GESTION DU FORMULAIRE DE CANDIDATURE
-// ==========================================
+
 
 const applicationForm = document.getElementById('applicationForm');
 
@@ -153,9 +153,8 @@ if (applicationForm) {
     });
 }
 
-// ==========================================
 // GESTION DU FICHIER CV
-// ==========================================
+
 
 const cvInput = document.getElementById('cv');
 const fileLabel = document.querySelector('.file-label .file-text');
@@ -171,9 +170,7 @@ if (cvInput && fileLabel) {
     });
 }
 
-// ==========================================
 // SMOOTH SCROLL POUR LA NAVIGATION
-// ==========================================
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
