@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Web4All - Plateforme de gestion d'offres de stages et d'alternances">
     <title>Web4All - Stages & Alternances</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../CSS/styles.css">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -73,17 +73,33 @@
         </ul>
     </div>
 </nav>
+
     <!-- Hero Section -->
     <section id="accueil" class="hero">
-        <div class="hero-background"></div>
         <div class="container">
-            <div class="hero-content">
-                <h2 class="hero-title">Trouvez votre stage ou alternance idéale</h2>
-                <p class="hero-subtitle">Rejoignez les meilleures entreprises tech et lancez votre carrière avec Web4All
-                </p>
-                <div class="hero-cta">
-                    <a href="#offres" class="btn btn-primary">Voir les offres</a>
-                    <a href="#postuler" class="btn btn-secondary">Postuler</a>
+            <div class="hero-layout">
+                <!-- Texte à gauche -->
+                <div class="hero-content">
+                    <h2 class="hero-title">Trouvez votre stage ou alternance idéale</h2>
+                    <p class="hero-subtitle">Rejoignez les meilleures entreprises tech et lancez votre carrière avec Web4All</p>
+                    <div class="hero-cta">
+                        <a href="#offres" class="btn btn-primary">Voir les offres</a>
+                        <a href="#postuler" class="btn btn-secondary">Postuler</a>
+                    </div>
+                </div>
+
+                <!-- Vidéo à droite -->
+                <div class="hero-video-wrapper">
+                    <video
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                        preload="auto"
+                        class="hero-video"
+                    >
+                        <source src="../videos/ma-video.mp4" type="video/mp4">
+                    </video>
                 </div>
             </div>
         </div>
@@ -124,14 +140,12 @@
                             Nous travaillons avec des clients du monde entier pour créer des solutions digitales sur
                             mesure.
                         </p>
-
                         <div class="contact-info">
                             <h5>Contact</h5>
                             <p><strong>Entreprise:</strong> TechCorp Solutions</p>
                             <p><strong>Téléphone:</strong> +33 1 23 45 67 89</p>
                             <p><strong>Email:</strong> recrutement@techcorp.fr</p>
                         </div>
-
                         <button class="btn btn-primary btn-apply-quick">Postuler rapidement</button>
                     </div>
                 </div>
@@ -153,7 +167,6 @@
                         <span class="tag">Prototypage</span>
                     </div>
                     <button class="btn btn-small btn-postuler">Postuler</button>
-
                     <div class="extended-info">
                         <div class="divider"></div>
                         <h4>À propos de l'entreprise</h4>
@@ -161,14 +174,12 @@
                             Creative Digital est une agence de design reconnue pour ses créations innovantes.
                             Nous accompagnons nos clients dans la transformation digitale de leurs produits.
                         </p>
-
                         <div class="contact-info">
                             <h5>Contact</h5>
                             <p><strong>Entreprise:</strong> Creative Digital</p>
                             <p><strong>Téléphone:</strong> +33 4 56 78 90 12</p>
                             <p><strong>Email:</strong> jobs@creative-digital.fr</p>
                         </div>
-
                         <button class="btn btn-primary btn-apply-quick">Postuler rapidement</button>
                     </div>
                 </div>
@@ -190,7 +201,6 @@
                         <span class="tag">Tableau</span>
                     </div>
                     <button class="btn btn-small btn-postuler">Postuler</button>
-
                     <div class="extended-info">
                         <div class="divider"></div>
                         <h4>À propos de l'entreprise</h4>
@@ -199,14 +209,12 @@
                             meilleures décisions.
                             Notre expertise en data science et visualisation fait de nous un acteur clé du marché.
                         </p>
-
                         <div class="contact-info">
                             <h5>Contact</h5>
                             <p><strong>Entreprise:</strong> DataVision Analytics</p>
                             <p><strong>Téléphone:</strong> +33 2 34 56 78 90</p>
                             <p><strong>Email:</strong> careers@datavision.fr</p>
                         </div>
-
                         <button class="btn btn-primary btn-apply-quick">Postuler rapidement</button>
                     </div>
                 </div>
@@ -228,7 +236,6 @@
                         <span class="tag">Swift</span>
                     </div>
                     <button class="btn btn-small btn-postuler">Postuler</button>
-
                     <div class="extended-info">
                         <div class="divider"></div>
                         <h4>À propos de l'entreprise</h4>
@@ -237,14 +244,12 @@
                             entreprises.
                             Notre équipe passionnée crée des expériences utilisateur exceptionnelles.
                         </p>
-
                         <div class="contact-info">
                             <h5>Contact</h5>
                             <p><strong>Entreprise:</strong> AppMakers Studio</p>
                             <p><strong>Téléphone:</strong> +33 5 67 89 01 23</p>
                             <p><strong>Email:</strong> recrutement@appmakers.fr</p>
                         </div>
-
                         <button class="btn btn-primary btn-apply-quick">Postuler rapidement</button>
                     </div>
                 </div>
@@ -266,7 +271,6 @@
                         <span class="tag">AWS</span>
                     </div>
                     <button class="btn btn-small btn-postuler">Postuler</button>
-
                     <div class="extended-info">
                         <div class="divider"></div>
                         <h4>À propos de l'entreprise</h4>
@@ -275,14 +279,12 @@
                             Nous aidons les entreprises à moderniser leur infrastructure et à automatiser leurs
                             processus.
                         </p>
-
                         <div class="contact-info">
                             <h5>Contact</h5>
                             <p><strong>Entreprise:</strong> CloudTech Systems</p>
                             <p><strong>Téléphone:</strong> +33 5 12 34 56 78</p>
                             <p><strong>Email:</strong> jobs@cloudtech.fr</p>
                         </div>
-
                         <button class="btn btn-primary btn-apply-quick">Postuler rapidement</button>
                     </div>
                 </div>
@@ -304,7 +306,6 @@
                         <span class="tag">Firewall</span>
                     </div>
                     <button class="btn btn-small btn-postuler">Postuler</button>
-
                     <div class="extended-info">
                         <div class="divider"></div>
                         <h4>À propos de l'entreprise</h4>
@@ -313,14 +314,12 @@
                             Notre équipe d'experts en sécurité travaille 24/7 pour garantir la protection de nos
                             clients.
                         </p>
-
                         <div class="contact-info">
                             <h5>Contact</h5>
                             <p><strong>Entreprise:</strong> SecureNet France</p>
                             <p><strong>Téléphone:</strong> +33 1 98 76 54 32</p>
                             <p><strong>Email:</strong> recrutement@securenet.fr</p>
                         </div>
-
                         <button class="btn btn-primary btn-apply-quick">Postuler rapidement</button>
                     </div>
                 </div>
@@ -454,7 +453,7 @@
     <!-- Overlay pour les cartes expandables -->
     <div class="overlay" id="overlay"></div>
 
-    <script src="script.js"></script>
+    <script src="../JS/script.js"></script>
 </body>
 
 </html>

@@ -1,48 +1,54 @@
-/*VARIABLES CSS */
+/* ==========================================
+   VARIABLES CSS
+   ========================================== */
 
 :root {
-    /* Couleurs - seulement l'essentiel */
+    /* Couleurs */
     --primary-color: #FF6B35;
     --secondary-color: #004E89;
     --dark: #333333;
     --gray: #666666;
     --light-gray: #EEEEEE;
     --white: #FFFFFF;
-    
+
     /* Typographie */
     --font-display: 'Syne', sans-serif;
     --font-body: 'Work Sans', sans-serif;
 }
 
 
-/* RESET DE BASE */
+/* ==========================================
+   RESET DE BASE
+   ========================================== */
 
-/* On remet tout à zéro */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Les padding/border sont inclus dans la largeur */
+    box-sizing: border-box;
 }
 
 body {
     font-family: var(--font-body);
     font-size: 16px;
-    line-height: 1.6; /* Espacement entre les lignes */
+    line-height: 1.6;
     color: var(--dark);
     background-color: var(--white);
 }
 
-/* TYPOGRAPHIE - Titres et textes */
+
+/* ==========================================
+   TYPOGRAPHIE
+   ========================================== */
 
 h1, h2, h3, h4 {
     font-family: var(--font-display);
     color: var(--dark);
 }
 
-h1 { font-size: 3rem; }    /* 48px */
-h2 { font-size: 2.5rem; }  /* 40px */
-h3 { font-size: 1.75rem; } /* 28px */
-h4 { font-size: 1.25rem; } /* 20px */
+h1 { font-size: 3rem; }
+h2 { font-size: 2.5rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.25rem; }
 
 p {
     margin-bottom: 1rem;
@@ -57,32 +63,37 @@ a:hover {
     color: var(--secondary-color);
 }
 
-/*CONTAINER - Pour centrer le contenu*/
+
+/* ==========================================
+   CONTAINER
+   ========================================== */
 
 .container {
     max-width: 1200px;
-    margin: 0 auto; /* Centre le container */
-    padding: 0 2rem; /* Espace sur les côtés */
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
-/*NAVIGATION */
+
+/* ==========================================
+   NAVIGATION
+   ========================================== */
 
 .navbar {
     background: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 1.5rem 0;
-    position: sticky; /* Reste en haut lors du scroll */
+    position: sticky;
     top: 0;
     z-index: 1000;
 }
 
 .navbar .container {
     display: flex;
-    justify-content: space-between; /* Logo à gauche, menu à droite */
+    justify-content: space-between;
     align-items: center;
 }
 
-/* Logo Web4All*/
 .logo {
     font-family: var(--font-display);
     font-size: 2rem;
@@ -91,14 +102,14 @@ a:hover {
 }
 
 .logo .highlight {
-    color: var(--primary-color); /* Le "4" en orange */
+    color: var(--primary-color);
 }
 
-/* Menu de navigation */
 .nav-menu {
     display: flex;
-    list-style: none; /* Enlève les puces */
-    gap: 2rem; /* Espace entre les liens */
+    align-items: center;
+    list-style: none;
+    gap: 1.5rem;
 }
 
 .nav-link {
@@ -112,30 +123,39 @@ a:hover {
     color: var(--primary-color);
 }
 
-/* HERO - Section d'accueil */
+
+/* ==========================================
+   HERO - Section d'accueil avec vidéo
+   ========================================== */
 
 .hero {
     min-height: 80vh;
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
     padding: 5rem 0;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background: linear-gradient(135deg, #dce6f0 0%, #b8cfe0 100%);
+}
+
+/* Layout 2 colonnes : texte gauche | vidéo droite */
+.hero-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
 }
 
 .hero-content {
-    max-width: 800px;
+    max-width: 560px;
 }
 
 .hero-title {
-    font-size: 3.5rem;
+    font-size: 3rem;
     margin-bottom: 1.5rem;
     color: var(--dark);
 }
 
 .hero-subtitle {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     color: var(--gray);
     margin-bottom: 2rem;
 }
@@ -143,10 +163,36 @@ a:hover {
 .hero-cta {
     display: flex;
     gap: 1rem;
-    justify-content: center;
+    flex-wrap: wrap;
 }
 
-/* BOUTONS*/
+.hero-video-wrapper {
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: none;
+    aspect-ratio: 16 / 9;
+    background: transparent;
+}
+
+.hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    -webkit-mask-image: 
+        linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%),
+        linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image: 
+        linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%),
+        linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+    mask-composite: intersect;
+}
+
+
+/* ==========================================
+   BOUTONS
+   ========================================== */
 
 .btn {
     padding: 1rem 2rem;
@@ -155,7 +201,9 @@ a:hover {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s; /* Animation douce */
+    transition: all 0.3s;
+    display: inline-block;
+    text-align: center;
 }
 
 .btn-primary {
@@ -165,7 +213,8 @@ a:hover {
 
 .btn-primary:hover {
     background: var(--secondary-color);
-    transform: translateY(-2px); /* Légère montée */
+    color: white;
+    transform: translateY(-2px);
 }
 
 .btn-secondary {
@@ -189,7 +238,10 @@ a:hover {
     font-size: 1.1rem;
 }
 
-/*SECTIONS*/
+
+/* ==========================================
+   SECTIONS
+   ========================================== */
 
 section {
     padding: 5rem 0;
@@ -208,13 +260,15 @@ section {
     margin-bottom: 3rem;
 }
 
-/* OFFRES SECTION*/
+
+/* ==========================================
+   OFFRES SECTION
+   ========================================== */
 
 .offres-section {
     background: var(--light-gray);
 }
 
-/* Boutons de filtrage */
 .filters {
     display: flex;
     justify-content: center;
@@ -239,23 +293,22 @@ section {
     border-color: var(--primary-color);
 }
 
-/* Grille des offres */
 .offres-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 colonnes égales */
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
 }
 
-/* Carte d'offre */
 .offre-card {
     background: white;
     border-radius: 12px;
     padding: 2rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .offre-card:hover {
-    transform: translateY(-5px); /* Monte au survol */
+    transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -323,7 +376,10 @@ section {
     font-size: 0.85rem;
 }
 
-/* FORMULAIRES */
+
+/* ==========================================
+   FORMULAIRES
+   ========================================== */
 
 .form-section {
     background: white;
@@ -343,10 +399,9 @@ section {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Ligne de formulaire (2 champs côte à côte) */
 .form-row {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 2 colonnes égales */
+    grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
     margin-bottom: 1.5rem;
 }
@@ -361,7 +416,6 @@ section {
     margin-bottom: 0.5rem;
 }
 
-/* Tous les champs de saisie */
 .form-group input[type="text"],
 .form-group input[type="email"],
 .form-group input[type="tel"],
@@ -375,7 +429,6 @@ section {
     font-size: 1rem;
 }
 
-/* Changement de couleur au focus (clic dans le champ) */
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
@@ -384,11 +437,10 @@ section {
 }
 
 .form-group textarea {
-    resize: vertical; /* On peut agrandir verticalement */
+    resize: vertical;
     min-height: 120px;
 }
 
-/* Boutons radio */
 .radio-group {
     display: flex;
     gap: 2rem;
@@ -407,7 +459,6 @@ section {
     cursor: pointer;
 }
 
-/* Checkbox */
 .checkbox-label {
     display: flex;
     align-items: flex-start;
@@ -423,7 +474,6 @@ section {
     cursor: pointer;
 }
 
-/* Upload de fichier */
 .file-upload {
     position: relative;
 }
@@ -455,10 +505,9 @@ section {
     font-size: 2rem;
 }
 
-/* Notation par étoiles */
 .rating {
     display: flex;
-    flex-direction: row-reverse; /* Pour l'effet de survol */
+    flex-direction: row-reverse;
     justify-content: flex-end;
     gap: 0.5rem;
 }
@@ -476,10 +525,13 @@ section {
 .rating label:hover,
 .rating label:hover ~ label,
 .rating input[type="radio"]:checked ~ label {
-    color: #FFD700; /* Or */
+    color: #FFD700;
 }
 
-/* FOOTER */
+
+/* ==========================================
+   FOOTER
+   ========================================== */
 
 .footer {
     background: var(--dark);
@@ -489,7 +541,7 @@ section {
 
 .footer-content {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 colonnes */
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
     margin-bottom: 2rem;
 }
@@ -531,7 +583,10 @@ section {
     color: #CCCCCC;
 }
 
-/*  BANNIERE COOKIES */
+
+/* ==========================================
+   BANNIÈRE COOKIES
+   ========================================== */
 
 .cookie-banner {
     position: fixed;
@@ -543,11 +598,11 @@ section {
     padding: 1.5rem;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
     z-index: 2000;
-    display: none; /* Caché par défaut */
+    display: none;
 }
 
 .cookie-banner.show {
-    display: block; /* Affiché avec JavaScript */
+    display: block;
 }
 
 .cookie-content {
@@ -569,7 +624,10 @@ section {
     gap: 1rem;
 }
 
-/* MENTIONS LEGALES */
+
+/* ==========================================
+   MENTIONS LÉGALES
+   ========================================== */
 
 .legal-section {
     padding: 5rem 0;
@@ -635,103 +693,11 @@ section {
     margin-bottom: 1rem;
 }
 
-/* RESPONSIVE - Mobile et tablette */
-
-/* Tablettes et moins (écrans de moins de 768px) */
-@media (max-width: 768px) {
-    
-    /* Titres plus petits */
-    h1 { font-size: 2.5rem; }
-    h2 { font-size: 2rem; }
-    .hero-title { font-size: 2.5rem; }
-    .section-title { font-size: 2rem; }
-    
-    /* Navigation en colonne */
-    .nav-menu {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    /* Hero */
-    .hero {
-        min-height: 70vh;
-    }
-    
-    .hero-cta {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .btn {
-        width: 100%;
-        max-width: 300px;
-    }
-    
-    /* Grille des offres : 1 colonne */
-    .offres-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    /* Formulaires : 1 colonne */
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-    
-    /* Footer : 1 colonne */
-    .footer-content {
-        grid-template-columns: 1fr;
-    }
-    
-    /* Cookies */
-    .cookie-content {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .cookie-buttons {
-        width: 100%;
-        flex-direction: column;
-    }
-}
-
-/* Mobiles (écrans de moins de 480px) */
-@media (max-width: 480px) {
-    
-    .container {
-        padding: 0 1rem;
-    }
-    
-    .hero-title {
-        font-size: 2rem;
-    }
-    
-    .filters {
-        flex-wrap: wrap;
-    }
-    
-    .application-form,
-    .contact-form {
-        padding: 2rem;
-    }
-}
-
-/*UTILITAIRES*/
-
-.hidden {
-    display: none !important;
-}
-
-/* Focus visible pour accessibilité */
-:focus-visible {
-    outline: 3px solid var(--primary-color);
-    outline-offset: 2px;
-}
 
 /* ==========================================
    SYSTÈME DE CARTES EXPANDABLES
    ========================================== */
 
-/* Informations étendues - cachées par défaut */
 .extended-info {
     max-height: 0;
     overflow: hidden;
@@ -808,7 +774,6 @@ section {
     transform: translateY(0);
 }
 
-/* Bouton postuler initial */
 .btn-postuler {
     background-color: transparent !important;
     color: var(--primary-color) !important;
@@ -820,7 +785,7 @@ section {
     color: white !important;
 }
 
-/* Overlay styles - Flou sur tout l'écran avec backdrop-filter */
+/* Overlay avec flou */
 .overlay {
     position: fixed;
     top: 0;
@@ -832,7 +797,7 @@ section {
     -webkit-backdrop-filter: blur(6px);
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.6s ease, visibility 0.6s ease, backdrop-filter 0.6s ease;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
     z-index: 998;
 }
 
@@ -841,7 +806,6 @@ section {
     visibility: visible;
 }
 
-/* État étendu de la carte - Animation progressive */
 .offre-card.expanded {
     position: fixed !important;
     top: 50% !important;
@@ -859,7 +823,6 @@ section {
     transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
 }
 
-/* Scrollbar moderne pour la carte étendue */
 .offre-card.expanded::-webkit-scrollbar {
     width: 8px;
 }
@@ -874,89 +837,15 @@ section {
     border-radius: 10px;
 }
 
-.offre-card.expanded::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
-}
 
-/* Responsive pour cartes expandables */
-@media (max-width: 1200px) {
-    .offre-card.expanded {
-        width: 70vw !important;
-        max-height: 85vh !important;
-    }
-}
-
-@media (max-width: 768px) {
-    .offre-card.expanded {
-        width: 90vw !important;
-        max-height: 90vh !important;
-        padding: 24px;
-    }
-}
-
-@media (max-width: 480px) {
-    .offre-card.expanded {
-        width: 95vw !important;
-        max-height: 95vh !important;
-        padding: 20px;
-    }
-}
-
-/* Affichage au survol du parent */
-.dropdown-mega:hover .mega-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
-}
-
-.mega-menu {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-10px);
-    width: 90vw;
-    max-width: 1000px;
-    background: white;
-    display: flex;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-    border-radius: 12px;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.25s ease-out; /* Plus fluide pour le hover */
-    z-index: 2000;
-}
-
-/* Gestion de l'affichage des grilles de droite */
-.mega-grid {
-    display: none; /* Caché par défaut */
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 20px;
-}
-
-.mega-grid.active {
-    display: grid; /* Affiché quand actif */
-}
-
-/* Style de la sidebar au survol */
-.mega-sidebar li:hover {
-    background: #ffffff;
-    color: #ff6000; /* Couleur orange style Temu */
-    font-weight: bold;
-}
-
-/* Positionnement pour que les autres liens restent visibles */
-.nav-menu {
-    display: flex;
-    align-items: center;
-    list-style: none;
-    gap: 1.5rem;
-}
+/* ==========================================
+   MEGA MENU
+   ========================================== */
 
 .dropdown-mega {
-    position: static; /* Permet au menu de s'aligner sur la barre entière */
+    position: static;
 }
 
-/* Le Container du Mega Menu */
 .mega-menu {
     position: absolute;
     top: 100%;
@@ -975,14 +864,12 @@ section {
     z-index: 1000;
 }
 
-/* Affichage au survol */
 .dropdown-mega:hover .mega-menu {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(0);
 }
 
-/* Sidebar gauche */
 .mega-sidebar {
     width: 240px;
     background: #f8f9fa;
@@ -999,12 +886,12 @@ section {
     transition: 0.2s;
 }
 
-.sidebar-item.active, .sidebar-item:hover {
+.sidebar-item.active,
+.sidebar-item:hover {
     background: #fff;
     color: var(--primary-color);
 }
 
-/* Contenu Droite (Graphique) */
 .mega-content {
     flex: 1;
     padding: 30px;
@@ -1020,7 +907,6 @@ section {
     display: grid;
 }
 
-/* Les petits cercles type Temu */
 .mega-item {
     text-align: center;
     transition: transform 0.3s;
@@ -1045,7 +931,7 @@ section {
 }
 
 .mega-item:hover .circle-icon {
-    background: #ffe8e0; /* Couleur très douce proche du orange */
+    background: #ffe8e0;
 }
 
 .mega-item span {
@@ -1053,4 +939,129 @@ section {
     font-weight: 500;
     color: var(--dark);
     display: block;
-}   
+}
+
+
+/* ==========================================
+   UTILITAIRES
+   ========================================== */
+
+.hidden {
+    display: none !important;
+}
+
+:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 1200px) {
+    .offre-card.expanded {
+        width: 70vw !important;
+        max-height: 85vh !important;
+    }
+}
+
+@media (max-width: 768px) {
+
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+    .section-title { font-size: 2rem; }
+
+    .nav-menu {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    /* Hero responsive : empilé sur mobile */
+    .hero-layout {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+    .hero-content {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .hero-cta {
+        justify-content: center;
+    }
+
+    .hero-video-wrapper {
+        width: 100%;
+    }
+
+    .hero {
+        min-height: auto;
+        padding: 3rem 0;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .offres-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+
+    .cookie-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .cookie-buttons {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .offre-card.expanded {
+        width: 90vw !important;
+        max-height: 90vh !important;
+        padding: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .container {
+        padding: 0 1rem;
+    }
+
+    .hero-title {
+        font-size: 1.9rem;
+    }
+
+    .filters {
+        flex-wrap: wrap;
+    }
+
+    .application-form,
+    .contact-form {
+        padding: 2rem;
+    }
+
+    .offre-card.expanded {
+        width: 95vw !important;
+        max-height: 95vh !important;
+        padding: 20px;
+    }
+}
