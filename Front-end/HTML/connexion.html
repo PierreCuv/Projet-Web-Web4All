@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web4All - Connexion & Inscription</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&family=Work+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html" style="text-decoration: none;"><h1 class="logo">Web<span class="highlight">4</span>All</h1></a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Retour à l'accueil</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="auth-section">
+        <div class="auth-container">
+            <div class="auth-box">
+                <div class="auth-tabs">
+                    <button class="tab-btn active" data-target="login-form">Connexion</button>
+                    <button class="tab-btn" data-target="register-form">Créer un compte</button>
+                </div>
+
+                <form id="login-form" class="auth-form active">
+                    <h2>Ravi de vous revoir</h2>
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" required placeholder="votre@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Mot de passe</label>
+                        <input type="password" id="login-password" required placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Se connecter</button>
+                    <p class="auth-footer">Mot de passe oublié ? <a href="#">Cliquez ici</a></p>
+                </form>
+
+                <form id="register-form" class="auth-form">
+                    <h2>Rejoignez l'aventure</h2>
+                <div class="form-row">
+                <div class="form-group">
+                 <label for="reg-nom">Nom</label>
+                  <input type="text" id="reg-nom" required>
+               </div>
+              <div class="form-group">
+            <label for="reg-prenom">Prénom</label>
+            <input type="text" id="reg-prenom" >
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="reg-email">Email</label>
+        <input type="email" id="reg-email" required>
+    </div>
+
+    <div class="form-group">
+        <label for="reg-role">Je suis...</label>
+        <select id="reg-role" name="role" required style="width: 100%; padding: 1rem; border: 2px solid var(--light-gray); border-radius: 8px;">
+            <option value="" disabled selected>Choisissez votre profil</option>
+            <option value="etudiant">Un étudiant (cherche un stage/alternance)</option>
+            <option value="entreprise">Une entreprise (propose des offres)</option>
+            <option value="pilote">Un pilote (expert / mentor)</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="reg-password">Mot de passe</label>
+        <input type="password" id="reg-password" required minlength="8">
+    </div>
+    
+    <button type="submit" class="btn btn-primary btn-full">Créer mon compte</button>
+</form>
+            </div>
+        </div>
+    </section>
+
+    <script src="../JS/auth.js"></script>
+</body>
+</html>
