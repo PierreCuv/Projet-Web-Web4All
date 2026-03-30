@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,69 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web4All - Ma Wishlist</title>
     <link rel="stylesheet" href="../CSS/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&family=Work+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar">
         <div class="container">
-            <div class="nav-brand">
-                <a href="index.html" style="text-decoration: none;"><h1 class="logo">Web<span class="highlight">4</span>All</h1></a>
-            </div>
+            <h1 class="logo">Web<span class="highlight">4</span>All</h1>
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link">Accueil</a></li>
-                <li><a href="wishlist.html" class="nav-link active">Ma Wishlist ❤️</a></li>
             </ul>
         </div>
     </nav>
 
-    <section class="offres-section">
-        <div class="container">
-            <h2 class="section-title">Mes offres sauvegardées</h2>
-            <div id="wishlist-container" class="offres-grid">
-                </div>
-            <div id="empty-msg" class="hidden" style="text-align: center; margin-top: 2rem;">
-                <p>Votre wishlist est vide pour le moment.</p>
-                <a href="index.html#offres" class="btn btn-primary">Parcourir les offres</a>
+    <section class="container" style="padding-top: 5rem;">
+        <h2 class="section-title">Ma Wishlist ❤️</h2>
+        <div id="wishlist-container" class="offres-grid">
             </div>
-        </div>
     </section>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const container = document.getElementById('wishlist-container');
-            const emptyMsg = document.getElementById('empty-msg');
-            const favorites = JSON.parse(localStorage.getItem('wishlist')) || [];
+            const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
-            if (favorites.length === 0) {
-                emptyMsg.classList.remove('hidden');
-            } else {
-                favorites.forEach(offre => {
-                    const card = document.createElement('div');
-                    card.className = 'offre-card';
-                    card.innerHTML = `
-                        <div class="offre-header">
-                            <span class="offre-type ${offre.type}">${offre.type}</span>
-                        </div>
-                        <h3 class="offre-title">${offre.title}</h3>
-                        <p class="offre-company">${offre.company}</p>
-                        <p class="offre-location">📍 ${offre.location}</p>
-                        <button class="btn btn-secondary btn-small remove-fav" data-id="${offre.id}">Retirer</button>
-                    `;
-                    container.appendChild(card);
-                });
+            if (wishlist.length === 0) {
+                container.innerHTML = "<p style='text-align:center; grid-column: 1/-1;'>Ta wishlist est vide.</p>";
+                return;
             }
 
-            // Gestion de la suppression
-            container.addEventListener('click', (e) => {
-                if (e.target.classList.contains('remove-fav')) {
-                    const id = e.target.getAttribute('data-id');
-                    let favs = JSON.parse(localStorage.getItem('wishlist'));
-                    favs = favs.filter(f => f.id !== id);
-                    localStorage.setItem('wishlist', JSON.stringify(favs));
-                    location.reload();
-                }
+            wishlist.forEach(offre => {
+                const card = document.createElement('div');
+                card.className = 'offre-card';
+                card.innerHTML = `
+                    <div class="offre-header">
+                        <span class="offre-type ${offre.type}">${offre.type}</span>
+                    </div>
+                    <h3 class="offre-title">${offre.title}</h3>
+                    <p class="offre-company">${offre.company}</p>
+                    <p class="offre-location">📍 ${offre.location}</p>
+                `;
+                container.appendChild(card);
             });
         });
     </script>

@@ -1221,3 +1221,31 @@ section {
     font-size: 1.2rem;
     line-height: 1;
 }
+.offre-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.btn-wishlist {
+    background: none;
+    border: 1px solid var(--light-gray);
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-wishlist:hover {
+    transform: scale(1.1);
+    border-color: var(--primary-color);
+}
+
+.heart-icon {
+    font-size: 1.2rem;
+}
