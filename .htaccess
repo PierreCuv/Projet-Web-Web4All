@@ -1,0 +1,11 @@
+Options -Indexes
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+<FilesMatch "\.(env|sql|log|json|md|gitignore)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
