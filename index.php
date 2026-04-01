@@ -3,10 +3,8 @@
 declare(strict_types=1);
 
 define('ROOT_PATH', __DIR__);
-define('APP_NAME', 'Web4All');
 
 // ── Autoloader ──────────────────────────────────────────────────────────
-// Charge automatiquement les classes PHP sans avoir à faire des require partout
 spl_autoload_register(function (string $class): void {
     $map = [
         'Core\\'        => ROOT_PATH . '/core/',
