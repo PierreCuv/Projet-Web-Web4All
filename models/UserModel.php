@@ -154,30 +154,33 @@ class UserModel extends Model
     }
 
     public function searchStudents(string $term, int $limit = 0, int $offset = 0): array
-    {
-        $sql = "SELECT u.id_utilisateur, u.nom, u.prenom, u.email,
-                       e.id_etudiant, e.promotion, e.id_pilote,
-                       pu.nom AS pilote_nom, pu.prenom AS pilote_prenom,
-                       COUNT(c.id_candidature) AS nb_candidatures
-                FROM utilisateur u
-                JOIN etudiant e          ON e.id_utilisateur  = u.id_utilisateur
-                LEFT JOIN pilote p       ON p.id_pilote       = e.id_pilote
-                LEFT JOIN utilisateur pu ON pu.id_utilisateur = p.id_utilisateur
-                LEFT JOIN candidature c  ON c.id_etudiant     = e.id_etudiant
-                WHERE (u.nom LIKE :t OR u.prenom LIKE :t
-                       OR u.email LIKE :t OR e.promotion LIKE :t)
-                GROUP BY u.id_utilisateur, e.id_etudiant
-                ORDER BY u.nom ASC";
-        if ($limit > 0) $sql .= " LIMIT :limit OFFSET :offset";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':t', '%' . $term . '%');
-        if ($limit > 0) {
-            $stmt->bindValue(':limit',  $limit,  PDO::PARAM_INT);
-            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-        }
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
+	{
+	    $sql = "SELECT u.id_utilisateur, u.nom, u.prenom, u.email,
+	                   e.id_etudiant, e.promotion,
+	                   COUNT(c.id_candidature) AS nb_candidatures
+	            FROM utilisateur u
+	            JOIN etudiant e         ON e.id_utilisateur = u.id_utilisateur
+	            LEFT JOIN candidature c  ON c.id_etudiant   = e.id_etudiant
+	            WHERE (u.nom LIKE :t1 OR u.prenom LIKE :t2
+	                   OR u.email LIKE :t3 OR e.promotion LIKE :t4)
+	            GROUP BY u.id_utilisateur, e.id_etudiant
+	            ORDER BY u.nom ASC";
+	
+	    if ($limit > 0) $sql .= " LIMIT :limit OFFSET :offset";
+	
+    	$stmt = $this->db->prepare($sql);
+    	$term = '%' . $term . '%';
+    	$stmt->bindValue(':t1', $term);
+    	$stmt->bindValue(':t2', $term);
+    	$stmt->bindValue(':t3', $term);
+    	$stmt->bindValue(':t4', $term);
+    	if ($limit > 0) {
+    	    $stmt->bindValue(':limit',  $limit,  \PDO::PARAM_INT);
+    	    $stmt->bindValue(':offset', $offset, \PDO::PARAM_INT);
+    	}
+    	$stmt->execute();
+    	return $stmt->fetchAll();
+	}
 
     public function findAllPilots(int $limit = 0, int $offset = 0): array
     {

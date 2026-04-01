@@ -1,10 +1,11 @@
 <?php
-
 declare(strict_types=1);
 
-define('APP_ENV', 'development');
+if (defined('APP_NAME')) return; // ← empêche le double chargement
+
+define('APP_ENV',  'development');
 define('APP_NAME', 'Web4All');
-define('APP_URL', 'http://localhost:8000');
+define('APP_URL', 'http://localhost:8080');
 
 if (APP_ENV === 'development') {
     ini_set('display_errors', '1');
