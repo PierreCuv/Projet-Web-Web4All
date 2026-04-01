@@ -1,36 +1,73 @@
-<section class="hero">
-    <div class="container">
-        <h1>Trouvez votre stage</h1>
-        <p class="hero__sub">
-            <?= $total_offers ?> offres dans <?= $total_companies ?> entreprises.
-        </p>
-        <a href="<?= APP_URL ?>/offres" class="btn btn--primary btn--lg">Voir les offres</a>
+<!-- Hero — identique à leur index.html -->
+<section id="accueil" class="hero">
+    <div class="hero-layout">
+        <div class="hero-content">
+            <h2 class="hero-title">Trouvez votre stage ou alternance idéale</h2>
+            <p class="hero-subtitle">
+                <?= $total_offers ?> offres dans <?= $total_companies ?> entreprises partenaires
+            </p>
+            <div class="hero-cta">
+                <a href="<?= APP_URL ?>/offres" class="btn btn-primary">Voir les offres</a>
+                <?php if (!\Core\Auth::isLoggedIn()): ?>
+                    <a href="<?= APP_URL ?>/login" class="btn btn-secondary">Connexion</a>
+                <?php endif; ?>
+            </div>
+        </div>
+        <div class="hero-video-wrapper">
+            <video autoplay muted loop playsinline class="hero-video">
+                <source src="<?= APP_URL ?>/Front-end/videos/ma-video.mp4" type="video/mp4">
+            </video>
+        </div>
     </div>
 </section>
-<section class="section">
+
+<!-- Offres dynamiques — même style que leurs cartes -->
+<section id="offres" class="offres-section">
     <div class="container">
-        <h2>Dernières offres</h2>
-        <div class="grid grid--3">
-            <?php foreach ($latest_offers as $offer): ?>
-                <article class="card">
-                    <span class="card__company"><?= \Core\View::e($offer['nom_entreprise']) ?></span>
-                    <h3 class="card__title">
-                        <a href="<?= APP_URL ?>/offres/<?= $offer['id_offre'] ?>">
-                            <?= \Core\View::e($offer['titre']) ?>
-                        </a>
-                    </h3>
-                    <div class="card__meta">
-                        <?php if ($offer['lieu']): ?>
-                            <span><?= \Core\View::e($offer['lieu']) ?></span>
-                        <?php endif; ?>
-                        <?php if ($offer['remuneration']): ?>
-                            <span><?= number_format($offer['remuneration'], 0, ',', ' ') ?> €/mois</span>
+        <h2 class="section-title">Dernières offres disponibles</h2>
+        <p class="section-subtitle">Découvrez les opportunités du moment</p>
+
+        <div class="offres-grid">
+            <?php foreach ($latest_offers as $offre): ?>
+                <div class="offre-card">
+                    <div class="offre-header">
+                        <span class="offre-type stage">Stage</span>
+                        <?php if ($offre['lieu']): ?>
+                            <span class="offre-duree"><?= \Core\View::e($offre['lieu']) ?></span>
                         <?php endif; ?>
                     </div>
-                    <a href="<?= APP_URL ?>/offres/<?= $offer['id_offre'] ?>"
-                       class="btn btn--outline btn--sm mt-sm">Voir l'offre</a>
-                </article>
+
+                    <h3 class="offre-title"><?= \Core\View::e($offre['titre']) ?></h3>
+                    <p class="offre-company"><?= \Core\View::e($offre['nom_entreprise']) ?></p>
+
+                    <?php if ($offre['remuneration']): ?>
+                        <p class="offre-location">
+                            💶 <?= number_format($offre['remuneration'], 0, ',', ' ') ?> €/mois
+                        </p>
+                    <?php endif; ?>
+
+                    <p class="offre-description">
+                        <?= \Core\View::e(mb_substr($offre['description'], 0, 120)) ?>...
+                    </p>
+
+                    <?php if ($offre['competences']): ?>
+                        <div class="offre-tags">
+                            <?php foreach (explode(', ', $offre['competences']) as $comp): ?>
+                                <span class="tag"><?= \Core\View::e($comp) ?></span>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <a href="<?= APP_URL ?>/offres/<?= $offre['id_offre'] ?>"
+                       class="btn btn-small btn-postuler">Voir l'offre</a>
+                </div>
             <?php endforeach; ?>
+        </div>
+
+        <div style="text-align:center;margin-top:2rem;">
+            <a href="<?= APP_URL ?>/offres" class="btn btn-primary">
+                Voir toutes les offres
+            </a>
         </div>
     </div>
 </section>

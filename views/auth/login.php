@@ -1,20 +1,39 @@
-<div class="container container--narrow">
-    <div class="card card--center mt-xl">
-        <h1 class="card__title">Connexion</h1>
-        <?php if ($error ?? null): ?>
-            <div class="alert alert--error"><?= \Core\View::e($error) ?></div>
-        <?php endif; ?>
-        <form method="POST" action="<?= APP_URL ?>/login" novalidate>
-            <?= \Core\CSRF::field() ?>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required autocomplete="email">
+<section class="auth-section">
+    <div class="auth-container">
+        <div class="auth-box">
+
+            <?php if ($error ?? null): ?>
+                <div style="background:#fef2f2;color:#b91c1c;padding:.75rem 1rem;
+                            border-radius:8px;margin-bottom:1rem;font-size:.9rem;">
+                    <?= \Core\View::e($error) ?>
+                </div>
+            <?php endif; ?>
+
+            <div class="auth-tabs">
+                <button class="tab-btn active">Connexion</button>
             </div>
-            <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn btn--primary btn--full">Se connecter</button>
-        </form>
+
+            <!-- Formulaire de connexion PHP -->
+            <form method="POST" action="<?= APP_URL ?>/login" class="auth-form active">
+                <?= \Core\CSRF::field() ?>
+                <h2>Ravi de vous revoir</h2>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email"
+                           required placeholder="votre@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password"
+                           required placeholder="••••••••">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">
+                    Se connecter
+                </button>
+            </form>
+        </div>
     </div>
-</div>
+</section>
