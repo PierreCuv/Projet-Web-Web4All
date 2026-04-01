@@ -31,6 +31,7 @@
 
             <?php if (\Core\Auth::isStaff()): ?>
                 <li><a href="<?= APP_URL ?>/etudiants" class="nav-link">Étudiants</a></li>
+                <li><a href="<?= APP_URL ?>/offres/statistiques" class="nav-link">Statistiques</a></li>
             <?php endif; ?>
 
             <?php if (\Core\Auth::isPilot()): ?>

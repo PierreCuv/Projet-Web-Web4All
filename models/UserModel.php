@@ -18,11 +18,14 @@ class UserModel extends Model
         return $this->queryOne(
             "SELECT u.*, r.libelle AS role,
                     e.id_etudiant, e.promotion, e.cv, e.id_pilote,
-                    p.id_pilote AS pilote_id
+                    p.id_pilote AS pilote_id,
+                    pu.nom AS ref_pilote_nom, pu.prenom AS ref_pilote_prenom
              FROM utilisateur u
-             JOIN role r          ON r.id_role        = u.id_role
-             LEFT JOIN etudiant e ON e.id_utilisateur = u.id_utilisateur
-             LEFT JOIN pilote p   ON p.id_utilisateur = u.id_utilisateur
+             JOIN role r           ON r.id_role         = u.id_role
+             LEFT JOIN etudiant e  ON e.id_utilisateur  = u.id_utilisateur
+             LEFT JOIN pilote p    ON p.id_utilisateur  = u.id_utilisateur
+             LEFT JOIN pilote rp   ON rp.id_pilote      = e.id_pilote
+             LEFT JOIN utilisateur pu ON pu.id_utilisateur = rp.id_utilisateur
              WHERE u.email = :email LIMIT 1",
             [':email' => $email]
         );
@@ -33,11 +36,14 @@ class UserModel extends Model
         return $this->queryOne(
             "SELECT u.*, r.libelle AS role,
                     e.id_etudiant, e.promotion, e.cv, e.id_pilote,
-                    p.id_pilote AS pilote_id
+                    p.id_pilote AS pilote_id,
+                    pu.nom AS ref_pilote_nom, pu.prenom AS ref_pilote_prenom
              FROM utilisateur u
-             JOIN role r          ON r.id_role        = u.id_role
-             LEFT JOIN etudiant e ON e.id_utilisateur = u.id_utilisateur
-             LEFT JOIN pilote p   ON p.id_utilisateur = u.id_utilisateur
+             JOIN role r           ON r.id_role         = u.id_role
+             LEFT JOIN etudiant e  ON e.id_utilisateur  = u.id_utilisateur
+             LEFT JOIN pilote p    ON p.id_utilisateur  = u.id_utilisateur
+             LEFT JOIN pilote rp   ON rp.id_pilote      = e.id_pilote
+             LEFT JOIN utilisateur pu ON pu.id_utilisateur = rp.id_utilisateur
              WHERE u.id_utilisateur = :id",
             [':id' => $id]
         );
@@ -150,11 +156,14 @@ class UserModel extends Model
     public function searchStudents(string $term, int $limit = 0, int $offset = 0): array
     {
         $sql = "SELECT u.id_utilisateur, u.nom, u.prenom, u.email,
-                       e.id_etudiant, e.promotion,
+                       e.id_etudiant, e.promotion, e.id_pilote,
+                       pu.nom AS pilote_nom, pu.prenom AS pilote_prenom,
                        COUNT(c.id_candidature) AS nb_candidatures
                 FROM utilisateur u
-                JOIN etudiant e        ON e.id_utilisateur = u.id_utilisateur
-                LEFT JOIN candidature c ON c.id_etudiant   = e.id_etudiant
+                JOIN etudiant e          ON e.id_utilisateur  = u.id_utilisateur
+                LEFT JOIN pilote p       ON p.id_pilote       = e.id_pilote
+                LEFT JOIN utilisateur pu ON pu.id_utilisateur = p.id_utilisateur
+                LEFT JOIN candidature c  ON c.id_etudiant     = e.id_etudiant
                 WHERE (u.nom LIKE :t OR u.prenom LIKE :t
                        OR u.email LIKE :t OR e.promotion LIKE :t)
                 GROUP BY u.id_utilisateur, e.id_etudiant
