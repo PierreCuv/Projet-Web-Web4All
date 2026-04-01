@@ -1249,3 +1249,157 @@ section {
 .heart-icon {
     font-size: 1.2rem;
 }
+
+/* ==========================================
+   AJOUTS BACKEND MVC
+   ========================================== */
+
+.simple-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.simple-grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.simple-grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.info-card,
+.metric-card {
+    background: white;
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.metric-card {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    justify-content: center;
+    min-height: 150px;
+}
+
+.metric-label,
+.mini-stat-label {
+    color: var(--gray);
+    font-size: .95rem;
+}
+
+.metric-value {
+    font-size: 2.3rem;
+    font-family: var(--font-display);
+    color: var(--primary-color);
+}
+
+.mini-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: .75rem;
+    margin-top: 1rem;
+}
+
+.mini-stat {
+    background: var(--light-gray);
+    padding: .85rem;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.mini-stat-value {
+    display: block;
+    font-weight: 700;
+    color: var(--dark);
+    font-size: 1.1rem;
+}
+
+.info-list p {
+    margin-bottom: .6rem;
+}
+
+.page-actions {
+    display: flex;
+    gap: .75rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.empty-state {
+    background: white;
+    border-radius: 14px;
+    padding: 2.5rem;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: .35rem .75rem;
+    border-radius: 999px;
+    font-size: .85rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.status-badge-en_attente,
+.status-badge-neutral {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+.status-badge-acceptee,
+.status-badge-accepte,
+.status-badge-validee {
+    background: #f0fdf4;
+    color: #15803d;
+}
+
+.status-badge-refusee,
+.status-badge-refuse {
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+.pagination {
+    margin-top: 2rem;
+}
+
+.pagination ul {
+    list-style: none;
+    display: flex;
+    gap: .5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.pagination a,
+.pagination span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    height: 42px;
+    padding: 0 .75rem;
+    border-radius: 10px;
+    background: white;
+    border: 1px solid #e5e7eb;
+}
+
+.pagination li.active a {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+@media (max-width: 900px) {
+    .simple-grid-2,
+    .simple-grid-3,
+    .mini-stats {
+        grid-template-columns: 1fr;
+    }
+}
