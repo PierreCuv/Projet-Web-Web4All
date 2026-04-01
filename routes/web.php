@@ -15,12 +15,12 @@ $router->post('/entreprises/creer',         'CompanyController', 'store',   ['ad
 $router->get( '/entreprises/:id',           'CompanyController', 'show');
 $router->get( '/entreprises/:id/modifier',  'CompanyController', 'edit',    ['administrateur','pilote']);
 $router->post('/entreprises/:id/modifier',  'CompanyController', 'update',  ['administrateur','pilote']);
-$router->post('/entreprises/:id/evaluer',   'CompanyController', 'evaluate',['administrateur','pilote']);
+$router->post('/entreprises/:id/evaluer',   'CompanyController', 'evaluate',['etudiant']);
 $router->post('/entreprises/:id/supprimer', 'CompanyController', 'destroy', ['administrateur','pilote']);
 
 // ── Offres ────────────────────────────────────────────────────────────────
 $router->get( '/offres',                 'OfferController', 'index');
-$router->get( '/offres/statistiques',    'OfferController', 'statistics');
+$router->get( '/offres/statistiques',    'OfferController', 'statistics', ['administrateur','pilote']);
 $router->get( '/offres/creer',           'OfferController', 'create',  ['administrateur','pilote']);
 $router->post('/offres/creer',           'OfferController', 'store',   ['administrateur','pilote']);
 $router->get( '/offres/:id',             'OfferController', 'show');

@@ -55,6 +55,7 @@ class StudentController extends Controller
         $this->view->render('students/form', [
             'title'   => 'Créer un étudiant – ' . APP_NAME,
             'student' => null,
+            'pilots'  => $this->userModel->findAllPilots(),
             'action'  => APP_URL . '/etudiants/creer',
             'error'   => Session::getFlash('error'),
         ]);
@@ -91,6 +92,7 @@ class StudentController extends Controller
         $this->view->render('students/form', [
             'title'   => 'Modifier – ' . APP_NAME,
             'student' => $student,
+            'pilots'  => $this->userModel->findAllPilots(),
             'action'  => APP_URL . '/etudiants/' . $params['id'] . '/modifier',
             'error'   => Session::getFlash('error'),
         ]);
