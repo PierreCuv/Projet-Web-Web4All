@@ -8,7 +8,9 @@ let expandedCard = null;
 let originalCardState = null;
 
 function expandCard(card) {
-    if (expandedCard) return;
+    // Sécurité : ne pas animer si c'est une vue "Détail" (statique)
+    if (expandedCard || card.classList.contains('static-card')) return;
+    
     const rect = card.getBoundingClientRect();
     originalCardState = {
         element: card,
@@ -21,6 +23,7 @@ function expandCard(card) {
         zIndex: card.style.zIndex,
         transition: card.style.transition
     };
+
     card.style.transition = 'none';
     card.style.position = 'fixed';
     card.style.top = rect.top + 'px';
@@ -28,12 +31,14 @@ function expandCard(card) {
     card.style.width = rect.width + 'px';
     card.style.height = rect.height + 'px';
     card.style.margin = '0';
-    card.style.transform = 'none';
     card.style.zIndex = '1001';
+    
     void card.offsetHeight;
+    
     card.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
-    overlay.classList.add('active');
+    if(overlay) overlay.classList.add('active');
     expandedCard = card;
+
     requestAnimationFrame(() => {
         requestAnimationFrame(() => {
             card.classList.add('expanded');
@@ -41,27 +46,41 @@ function expandCard(card) {
     });
 }
 
-function closeCard() {
-    if (!expandedCard || !originalCardState) return;
-    const card = expandedCard;
-    card.classList.remove('expanded');
-    overlay.classList.remove('active');
-    setTimeout(() => {
-        if (originalCardState && originalCardState.element === card) {
-            card.style.position = originalCardState.position;
-            card.style.top = originalCardState.top;
-            card.style.left = originalCardState.left;
-            card.style.width = originalCardState.width;
-            card.style.height = originalCardState.height;
-            card.style.transform = originalCardState.transform;
-            card.style.zIndex = originalCardState.zIndex;
-            card.style.transition = originalCardState.transition;
-            card.style.margin = '';
-            expandedCard = null;
-            originalCardState = null;
+// ... ta fonction closeCard() reste identique ...
+
+cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+        // Si c'est une carte statique (page show.php), on ne fait RIEN
+        if (card.classList.contains('static-card')) return;
+
+        // Gestion des exceptions (boutons, liens, formulaires)
+        if (e.target.closest('.btn-postuler') || 
+            e.target.closest('.btn-apply-quick') || 
+            e.target.closest('.add-wishlist') ||
+            e.target.closest('form')) { // Ajout de form pour éviter les bugs
+            return; 
         }
-    }, 600);
-}
+        
+        if (card.classList.contains('expanded')) return;
+        expandCard(card);
+    });
+});
+
+/* ==========================================
+   GESTION DES FICHIERS (Multi-champs)
+   ========================================== */
+
+// On écoute tous les changements sur les inputs de type file
+document.addEventListener('change', (e) => {
+    if (e.target.type === 'file') {
+        const input = e.target;
+        // On cherche le span .file-text qui est dans le label juste à côté
+        const label = input.parentElement.querySelector('.file-text');
+        if (label) {
+            label.textContent = input.files.length > 0 ? input.files[0].name : 'Choisir un fichier';
+        }
+    }
+});
 
 cards.forEach(card => {
     card.addEventListener('click', (e) => {

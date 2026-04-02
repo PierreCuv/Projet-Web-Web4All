@@ -5,7 +5,7 @@
             ← Retour aux offres
         </a>
 
-        <div class="offre-card" style="margin-top:1.5rem;">
+        <div class="offre-card static-card" style="margin-top:1.5rem;">
             <div class="offre-header">
                 <span class="offre-type stage">Stage</span>
                 <?php if ($offer['lieu']): ?>
