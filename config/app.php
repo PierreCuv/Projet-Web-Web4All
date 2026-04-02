@@ -30,3 +30,4 @@ define('UPLOAD_PATH', ROOT_PATH . '/public/uploads/');
 define('UPLOAD_MAX_SIZE', 5 * 1024 * 1024);
 define('UPLOAD_ALLOWED_TYPES', ['application/pdf']);
 define('PILOTE_INVITE_CODE', 'PILOTE2026'); 
+define('ENTREPRISE_INVITE_CODE', 'ENTREPRISE2024');
