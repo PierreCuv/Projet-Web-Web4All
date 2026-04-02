@@ -69,23 +69,22 @@ public function register(): void
 {
     CSRF::verify();
 
-    $prenom      = $this->input('prenom');
-    $nom         = $this->input('nom');
-    $email       = $this->input('email');
-    $password    = $this->input('password');
-    $confirm     = $this->input('password_confirm');
-    $role        = $this->input('role');
-    $inviteCode  = $this->input('invite_code');
+    $prenom     = $this->input('prenom');
+    $nom        = $this->input('nom');
+    $email      = $this->input('email');
+    $password   = $this->input('password');
+    $confirm    = $this->input('password_confirm');
+    $role       = $this->input('role');
+    $inviteCode = $this->input('invite_code');
 
-    // Rôles autorisés à l'inscription publique
-    $rolesAutorisés = ['etudiant', 'pilote'];
+    $rolesAutorises = ['etudiant', 'pilote', 'entreprise'];
 
     if (empty($prenom) || empty($nom) || empty($email) || empty($password)) {
         Session::flash('error', 'Veuillez remplir tous les champs.');
         $this->redirect('/register');
     }
 
-    if (!in_array($role, $rolesAutorisés, true)) {
+    if (!in_array($role, $rolesAutorises, true)) {
         Session::flash('error', 'Rôle invalide.');
         $this->redirect('/register');
     }
@@ -100,10 +99,17 @@ public function register(): void
         $this->redirect('/register');
     }
 
-    // Vérification du code d'invitation pour les pilotes
+    // Vérification du code selon le rôle
     if ($role === 'pilote') {
         if (empty($inviteCode) || $inviteCode !== PILOTE_INVITE_CODE) {
             Session::flash('error', 'Code d\'invitation pilote invalide.');
+            $this->redirect('/register');
+        }
+    }
+
+    if ($role === 'entreprise') {
+        if (empty($inviteCode) || $inviteCode !== ENTREPRISE_INVITE_CODE) {
+            Session::flash('error', 'Code d\'invitation entreprise invalide.');
             $this->redirect('/register');
         }
     }
