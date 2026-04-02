@@ -69,15 +69,24 @@ public function register(): void
 {
     CSRF::verify();
 
-    $prenom   = $this->input('prenom');
-    $nom      = $this->input('nom');
-    $email    = $this->input('email');
-    $password = $this->input('password');
-    $confirm  = $this->input('password_confirm');
+    $prenom      = $this->input('prenom');
+    $nom         = $this->input('nom');
+    $email       = $this->input('email');
+    $password    = $this->input('password');
+    $confirm     = $this->input('password_confirm');
+    $role        = $this->input('role');
+    $inviteCode  = $this->input('invite_code');
 
-    // Validation basique
+    // Rôles autorisés à l'inscription publique
+    $rolesAutorisés = ['etudiant', 'pilote'];
+
     if (empty($prenom) || empty($nom) || empty($email) || empty($password)) {
         Session::flash('error', 'Veuillez remplir tous les champs.');
+        $this->redirect('/register');
+    }
+
+    if (!in_array($role, $rolesAutorisés, true)) {
+        Session::flash('error', 'Rôle invalide.');
         $this->redirect('/register');
     }
 
@@ -91,20 +100,26 @@ public function register(): void
         $this->redirect('/register');
     }
 
-    // Vérifier si l'email existe déjà
+    // Vérification du code d'invitation pour les pilotes
+    if ($role === 'pilote') {
+        if (empty($inviteCode) || $inviteCode !== PILOTE_INVITE_CODE) {
+            Session::flash('error', 'Code d\'invitation pilote invalide.');
+            $this->redirect('/register');
+        }
+    }
+
     if ($this->userModel->findByEmail($email)) {
         Session::flash('error', 'Cet email est déjà utilisé.');
         $this->redirect('/register');
     }
 
-    // Créer l'utilisateur (rôle étudiant par défaut)
     $this->userModel->createWithPassword([
-    'prenom'   => $prenom,
-    'nom'      => $nom,
-    'email'    => $email,
-    'password' => $password,  // le hash est fait dans le modèle, ne pas le faire ici
-    'role'     => 'etudiant',
-]);
+        'prenom'   => $prenom,
+        'nom'      => $nom,
+        'email'    => $email,
+        'password' => $password,
+        'role'     => $role,
+    ]);
 
     $this->redirectWithFlash('/login', 'success', 'Compte créé ! Vous pouvez vous connecter.');
 }

@@ -48,6 +48,25 @@
                            required placeholder="••••••••">
                 </div>
 
+                <!-- Choix du rôle -->
+                <div class="form-group">
+                    <label for="role">Je suis...</label>
+                    <select id="role" name="role" required onchange="toggleInviteCode(this.value)">
+                        <option value="etudiant">Étudiant</option>
+                        <option value="pilote">Pilote</option>
+                    </select>
+                </div>
+
+                <!-- Code invitation, visible uniquement si pilote -->
+                <div class="form-group" id="invite-code-group" style="display:none;">
+                    <label for="invite_code">Code d'invitation pilote</label>
+                    <input type="text" id="invite_code" name="invite_code"
+                           placeholder="Entrez votre code d'invitation">
+                    <small style="color:#6b7280;font-size:.8rem;">
+                        Ce code vous est fourni par un administrateur.
+                    </small>
+                </div>
+
                 <button type="submit" class="btn btn-primary btn-full">
                     Créer mon compte
                 </button>
@@ -55,3 +74,18 @@
         </div>
     </div>
 </section>
+
+<script>
+function toggleInviteCode(role) {
+    const group = document.getElementById('invite-code-group');
+    const input = document.getElementById('invite_code');
+    if (role === 'pilote') {
+        group.style.display = 'block';
+        input.required = true;
+    } else {
+        group.style.display = 'none';
+        input.required = false;
+        input.value = '';
+    }
+}
+</script>
