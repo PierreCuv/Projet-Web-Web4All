@@ -6,208 +6,79 @@ const cards = document.querySelectorAll('.offre-card');
 const overlay = document.getElementById('overlay');
 let expandedCard = null;
 let originalCardState = null;
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("JS Web4All chargé et prêt !");
 
-    const cards = document.querySelectorAll('.offre-card');
-    const overlay = document.getElementById('overlay');
-    let expandedCard = null;
-    let originalCardState = null;
-
-    function expandCard(card) {
-        if (expandedCard || card.classList.contains('static-card')) return;
-        console.log("Ouverture de la carte...");
-
-        const rect = card.getBoundingClientRect();
-        originalCardState = {
-            element: card,
-            position: card.style.position,
-            top: card.style.top,
-            left: card.style.left,
-            width: card.style.width,
-            height: card.style.height
-        };
-
-        card.style.transition = 'none';
-        card.style.position = 'fixed';
-        card.style.top = rect.top + 'px';
-        card.style.left = rect.left + 'px';
-        card.style.width = rect.width + 'px';
-        card.style.height = rect.height + 'px';
-        card.style.zIndex = '2000';
-        
-        void card.offsetHeight;
-        
-        card.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        if(overlay) overlay.classList.add('active');
-        expandedCard = card;
-        card.classList.add('expanded');
-    }
-
-    function closeCard() {
-        if (!expandedCard) return;
-        console.log("Fermeture de la carte...");
-        
-        const card = expandedCard;
-        card.classList.remove('expanded');
-        if(overlay) overlay.classList.remove('active');
-
-        // On force le retour aux positions d'origine APRÈS l'anim
-        setTimeout(() => {
-            card.style.position = '';
-            card.style.top = '';
-            card.style.left = '';
-            card.style.width = '';
-            card.style.height = '';
-            card.style.zIndex = '';
-            card.style.transition = '';
-            
-            expandedCard = null;
-            originalCardState = null;
-            console.log("Styles réinitialisés.");
-        }, 600);
-    }
-
-    // Gestion des clics sur les cartes
-    cards.forEach(card => {
-        card.addEventListener('click', (e) => {
-            if (e.target.closest('.btn') || e.target.closest('.add-wishlist') || card.classList.contains('static-card')) {
-                return;
-            }
-            expandCard(card);
+function expandCard(card) {
+    if (expandedCard) return;
+    const rect = card.getBoundingClientRect();
+    originalCardState = {
+        element: card,
+        position: card.style.position,
+        top: card.style.top,
+        left: card.style.left,
+        width: card.style.width,
+        height: card.style.height,
+        transform: card.style.transform,
+        zIndex: card.style.zIndex,
+        transition: card.style.transition
+    };
+    card.style.transition = 'none';
+    card.style.position = 'fixed';
+    card.style.top = rect.top + 'px';
+    card.style.left = rect.left + 'px';
+    card.style.width = rect.width + 'px';
+    card.style.height = rect.height + 'px';
+    card.style.margin = '0';
+    card.style.transform = 'none';
+    card.style.zIndex = '1001';
+    void card.offsetHeight;
+    card.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    overlay.classList.add('active');
+    expandedCard = card;
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            card.classList.add('expanded');
         });
     });
+}
 
-    // Clic n'importe où ailleurs pour fermer
-    document.addEventListener('click', (e) => {
-        if (expandedCard && !expandedCard.contains(e.target)) {
-            closeCard();
-        }
-    });
-
-    // Touche Echap
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeCard();
-    });
-
-    /* --- GESTION FICHIERS --- */
-    document.addEventListener('change', (e) => {
-        if (e.target.type === 'file') {
-            const label = e.target.parentElement.querySelector('.file-text');
-            if (label) label.textContent = e.target.files[0].name;
-        }
-    });
-});
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("JS Web4All chargé et prêt !");
-
-    const cards = document.querySelectorAll('.offre-card');
-    const overlay = document.getElementById('overlay');
-    let expandedCard = null;
-    let originalCardState = null;
-
-    function expandCard(card) {
-        if (expandedCard || card.classList.contains('static-card')) return;
-        console.log("Ouverture de la carte...");
-
-        const rect = card.getBoundingClientRect();
-        originalCardState = {
-            element: card,
-            position: card.style.position,
-            top: card.style.top,
-            left: card.style.left,
-            width: card.style.width,
-            height: card.style.height
-        };
-
-        card.style.transition = 'none';
-        card.style.position = 'fixed';
-        card.style.top = rect.top + 'px';
-        card.style.left = rect.left + 'px';
-        card.style.width = rect.width + 'px';
-        card.style.height = rect.height + 'px';
-        card.style.zIndex = '2000';
-        
-        void card.offsetHeight;
-        
-        card.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        if(overlay) overlay.classList.add('active');
-        expandedCard = card;
-        card.classList.add('expanded');
-    }
-
-    function closeCard() {
-        if (!expandedCard) return;
-        console.log("Fermeture de la carte...");
-        
-        const card = expandedCard;
-        card.classList.remove('expanded');
-        if(overlay) overlay.classList.remove('active');
-
-        // On force le retour aux positions d'origine APRÈS l'anim
-        setTimeout(() => {
-            card.style.position = '';
-            card.style.top = '';
-            card.style.left = '';
-            card.style.width = '';
-            card.style.height = '';
-            card.style.zIndex = '';
-            card.style.transition = '';
-            
+function closeCard() {
+    if (!expandedCard || !originalCardState) return;
+    const card = expandedCard;
+    card.classList.remove('expanded');
+    overlay.classList.remove('active');
+    setTimeout(() => {
+        if (originalCardState && originalCardState.element === card) {
+            card.style.position = originalCardState.position;
+            card.style.top = originalCardState.top;
+            card.style.left = originalCardState.left;
+            card.style.width = originalCardState.width;
+            card.style.height = originalCardState.height;
+            card.style.transform = originalCardState.transform;
+            card.style.zIndex = originalCardState.zIndex;
+            card.style.transition = originalCardState.transition;
+            card.style.margin = '';
             expandedCard = null;
             originalCardState = null;
-            console.log("Styles réinitialisés.");
-        }, 600);
-    }
-
-    // Gestion des clics sur les cartes
-    cards.forEach(card => {
-        card.addEventListener('click', (e) => {
-            if (e.target.closest('.btn') || e.target.closest('.add-wishlist') || card.classList.contains('static-card')) {
-                return;
-            }
-            expandCard(card);
-        });
-    });
-
-    // Clic n'importe où ailleurs pour fermer
-    document.addEventListener('click', (e) => {
-        if (expandedCard && !expandedCard.contains(e.target)) {
-            closeCard();
         }
-    });
+    }, 600);
+}
 
-    // Touche Echap
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeCard();
-    });
-
-    /* --- GESTION FICHIERS --- */
-    document.addEventListener('change', (e) => {
-        if (e.target.type === 'file') {
-            const label = e.target.parentElement.querySelector('.file-text');
-            if (label) label.textContent = e.target.files[0].name;
+cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+        // Empêcher l'ouverture si on clique sur un bouton ou le coeur
+        if (e.target.closest('.btn-postuler') || 
+            e.target.closest('.btn-apply-quick') || 
+            e.target.closest('.add-wishlist')) {
+            return; 
         }
+        if (card.classList.contains('expanded')) return;
+        expandCard(card);
     });
 });
 
-/* ==========================================
-   GESTION DES FICHIERS (Multi-champs)
-   ========================================== */
+overlay.addEventListener('click', (e) => { if (e.target === overlay) closeCard(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && expandedCard) closeCard(); });
 
-document.addEventListener('change', (e) => {
-    if (e.target.type === 'file') {
-        const input = e.target;
-        const labelText = input.parentElement.querySelector('.file-text');
-        if (labelText) {
-            labelText.textContent = input.files.length > 0 ? input.files[0].name : 'Choisir un fichier PDF';
-        }
-    }
-});
-
-/* ==========================================
-   AUTHENTIFICATION
-   ========================================== */
 
 function checkAuth() {
     return localStorage.getItem('isLoggedIn') === 'true';
@@ -220,19 +91,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const authNavItem = document.querySelector('.nav-auth');
 
     if (isLoggedIn) {
+        // 1. Changer le bouton Connexion en Déconnexion
         if (authNavItem) {
             authNavItem.innerHTML = `<a href="#" id="logout-btn" class="btn btn-secondary btn-small">Déconnexion</a>`;
             document.getElementById('logout-btn').addEventListener('click', (e) => {
                 e.preventDefault();
-                localStorage.clear();
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('userRole');
+                localStorage.removeItem('userName');
                 window.location.href = 'index.html';
             });
         }
 
+        // 2. Ajouter le bouton "Publier" pour Entreprises et Pilotes
         if (role === 'entreprise' || role === 'pilote') {
             const createLi = document.createElement('li');
             createLi.innerHTML = `<a href="creer-offre.html" class="nav-link create-link" style="color: #FF6B35; font-weight: bold;">+ Publier</a>`;
-            if(navMenu) navMenu.insertBefore(createLi, authNavItem);
+            navMenu.insertBefore(createLi, authNavItem);
         }
     }
 });
@@ -247,25 +122,30 @@ document.addEventListener('click', (e) => {
         e.stopPropagation();
         if (!checkAuth()) {
             alert("Connecte-toi pour sauvegarder tes offres préférées !");
+            window.location.href = 'connexion.html';
             return;
         }
 
         const offerData = {
             id: btn.getAttribute('data-id'),
             title: btn.getAttribute('data-title'),
-            company: btn.getAttribute('data-company')
+            company: btn.getAttribute('data-company'),
+            type: btn.getAttribute('data-type'),
+            location: btn.getAttribute('data-location')
         };
 
         let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-        const index = wishlist.findIndex(item => item.id === offerData.id);
+        const isAlreadyIn = wishlist.some(item => item.id === offerData.id);
 
-        if (index === -1) {
+        if (!isAlreadyIn) {
             wishlist.push(offerData);
             btn.querySelector('.heart-icon').textContent = '❤️';
+            btn.style.borderColor = '#FF6B35';
             alert("Annonce ajoutée !");
         } else {
-            wishlist.splice(index, 1);
+            wishlist = wishlist.filter(item => item.id !== offerData.id);
             btn.querySelector('.heart-icon').textContent = '🤍';
+            btn.style.borderColor = '#eee';
             alert("Offre retirée.");
         }
         localStorage.setItem('wishlist', JSON.stringify(wishlist));
@@ -273,19 +153,33 @@ document.addEventListener('click', (e) => {
 });
 
 /* ==========================================
-   MEGA MENU & FORMULAIRE
+   FORMULAIRES ET DIVERS
    ========================================== */
 
 const applicationForm = document.getElementById('applicationForm');
 if (applicationForm) {
     applicationForm.addEventListener('submit', (e) => {
+        e.preventDefault();
         if (!checkAuth()) {
-            e.preventDefault();
             alert("🔒 Tu dois être connecté pour postuler !");
+            window.location.href = 'connexion.html';
+            return;
         }
+        alert('✅ Candidature envoyée avec succès !');
+        applicationForm.reset();
     });
 }
 
+// Gestion label fichier CV
+const cvInput = document.getElementById('cv');
+if (cvInput) {
+    cvInput.addEventListener('change', (e) => {
+        const txt = e.target.files.length > 0 ? e.target.files[0].name : 'Choisir un fichier';
+        document.querySelector('.file-label .file-text').textContent = txt;
+    });
+}
+
+// Mega menu
 document.querySelectorAll('.sidebar-item').forEach(item => {
     item.addEventListener('mouseenter', function() {
         document.querySelectorAll('.sidebar-item').forEach(si => si.classList.remove('active'));
@@ -294,4 +188,4 @@ document.querySelectorAll('.sidebar-item').forEach(item => {
         const grid = document.getElementById(this.getAttribute('data-target'));
         if(grid) grid.classList.add('active');
     });
-});
+}); 
