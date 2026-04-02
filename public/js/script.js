@@ -8,7 +8,7 @@ let expandedCard = null;
 let originalCardState = null;
 
 function expandCard(card) {
-    // Sécurité : ne pas animer si c'est une vue "Détail" (statique)
+    // Sécurité : ne pas animer si déjà ouvert ou si c'est la vue "Détail" (statique)
     if (expandedCard || card.classList.contains('static-card')) return;
     
     const rect = card.getBoundingClientRect();
@@ -24,6 +24,7 @@ function expandCard(card) {
         transition: card.style.transition
     };
 
+    // Préparation de l'animation
     card.style.transition = 'none';
     card.style.position = 'fixed';
     card.style.top = rect.top + 'px';
@@ -33,7 +34,7 @@ function expandCard(card) {
     card.style.margin = '0';
     card.style.zIndex = '1001';
     
-    void card.offsetHeight;
+    void card.offsetHeight; // Force le reflow
     
     card.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
     if(overlay) overlay.classList.add('active');
@@ -46,18 +47,42 @@ function expandCard(card) {
     });
 }
 
-// ... ta fonction closeCard() reste identique ...
+function closeCard() {
+    if (!expandedCard || !originalCardState) return;
+    
+    const card = expandedCard;
+    card.classList.remove('expanded');
+    if(overlay) overlay.classList.remove('active');
 
+    // On attend la fin de l'animation CSS pour reset les styles inline
+    setTimeout(() => {
+        if (originalCardState && originalCardState.element === card) {
+            card.style.position = originalCardState.position || '';
+            card.style.top = originalCardState.top || '';
+            card.style.left = originalCardState.left || '';
+            card.style.width = originalCardState.width || '';
+            card.style.height = originalCardState.height || '';
+            card.style.transform = originalCardState.transform || '';
+            card.style.zIndex = originalCardState.zIndex || '';
+            card.style.transition = originalCardState.transition || '';
+            card.style.margin = '';
+            
+            expandedCard = null;
+            originalCardState = null;
+        }
+    }, 600);
+}
+
+// Clic sur une carte pour l'ouvrir
 cards.forEach(card => {
     card.addEventListener('click', (e) => {
-        // Si c'est une carte statique (page show.php), on ne fait RIEN
         if (card.classList.contains('static-card')) return;
-
-        // Gestion des exceptions (boutons, liens, formulaires)
+        
+        // Empêcher l'ouverture si on clique sur un bouton ou le coeur
         if (e.target.closest('.btn-postuler') || 
             e.target.closest('.btn-apply-quick') || 
             e.target.closest('.add-wishlist') ||
-            e.target.closest('form')) { // Ajout de form pour éviter les bugs
+            e.target.closest('.btn')) {
             return; 
         }
         
@@ -66,38 +91,38 @@ cards.forEach(card => {
     });
 });
 
-/* ==========================================
-   GESTION DES FICHIERS (Multi-champs)
-   ========================================== */
-
-// On écoute tous les changements sur les inputs de type file
-document.addEventListener('change', (e) => {
-    if (e.target.type === 'file') {
-        const input = e.target;
-        // On cherche le span .file-text qui est dans le label juste à côté
-        const label = input.parentElement.querySelector('.file-text');
-        if (label) {
-            label.textContent = input.files.length > 0 ? input.files[0].name : 'Choisir un fichier';
+// Fermeture au clic sur l'overlay OU n'importe où ailleurs que la carte
+document.addEventListener('click', (e) => {
+    if (expandedCard) {
+        // Si le clic n'est PAS sur la carte ouverte ET n'est PAS un bouton qui l'a ouverte
+        if (!expandedCard.contains(e.target) && !e.target.closest('.offre-card')) {
+            closeCard();
         }
     }
 });
 
-cards.forEach(card => {
-    card.addEventListener('click', (e) => {
-        // Empêcher l'ouverture si on clique sur un bouton ou le coeur
-        if (e.target.closest('.btn-postuler') || 
-            e.target.closest('.btn-apply-quick') || 
-            e.target.closest('.add-wishlist')) {
-            return; 
-        }
-        if (card.classList.contains('expanded')) return;
-        expandCard(card);
-    });
+// Fermeture avec la touche Échap
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && expandedCard) closeCard();
 });
 
-overlay.addEventListener('click', (e) => { if (e.target === overlay) closeCard(); });
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && expandedCard) closeCard(); });
+/* ==========================================
+   GESTION DES FICHIERS (Multi-champs)
+   ========================================== */
 
+document.addEventListener('change', (e) => {
+    if (e.target.type === 'file') {
+        const input = e.target;
+        const labelText = input.parentElement.querySelector('.file-text');
+        if (labelText) {
+            labelText.textContent = input.files.length > 0 ? input.files[0].name : 'Choisir un fichier PDF';
+        }
+    }
+});
+
+/* ==========================================
+   AUTHENTIFICATION
+   ========================================== */
 
 function checkAuth() {
     return localStorage.getItem('isLoggedIn') === 'true';
@@ -110,23 +135,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const authNavItem = document.querySelector('.nav-auth');
 
     if (isLoggedIn) {
-        // 1. Changer le bouton Connexion en Déconnexion
         if (authNavItem) {
             authNavItem.innerHTML = `<a href="#" id="logout-btn" class="btn btn-secondary btn-small">Déconnexion</a>`;
             document.getElementById('logout-btn').addEventListener('click', (e) => {
                 e.preventDefault();
-                localStorage.removeItem('isLoggedIn');
-                localStorage.removeItem('userRole');
-                localStorage.removeItem('userName');
+                localStorage.clear();
                 window.location.href = 'index.html';
             });
         }
 
-        // 2. Ajouter le bouton "Publier" pour Entreprises et Pilotes
         if (role === 'entreprise' || role === 'pilote') {
             const createLi = document.createElement('li');
             createLi.innerHTML = `<a href="creer-offre.html" class="nav-link create-link" style="color: #FF6B35; font-weight: bold;">+ Publier</a>`;
-            navMenu.insertBefore(createLi, authNavItem);
+            if(navMenu) navMenu.insertBefore(createLi, authNavItem);
         }
     }
 });
@@ -141,30 +162,25 @@ document.addEventListener('click', (e) => {
         e.stopPropagation();
         if (!checkAuth()) {
             alert("Connecte-toi pour sauvegarder tes offres préférées !");
-            window.location.href = 'connexion.html';
             return;
         }
 
         const offerData = {
             id: btn.getAttribute('data-id'),
             title: btn.getAttribute('data-title'),
-            company: btn.getAttribute('data-company'),
-            type: btn.getAttribute('data-type'),
-            location: btn.getAttribute('data-location')
+            company: btn.getAttribute('data-company')
         };
 
         let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-        const isAlreadyIn = wishlist.some(item => item.id === offerData.id);
+        const index = wishlist.findIndex(item => item.id === offerData.id);
 
-        if (!isAlreadyIn) {
+        if (index === -1) {
             wishlist.push(offerData);
             btn.querySelector('.heart-icon').textContent = '❤️';
-            btn.style.borderColor = '#FF6B35';
             alert("Annonce ajoutée !");
         } else {
-            wishlist = wishlist.filter(item => item.id !== offerData.id);
+            wishlist.splice(index, 1);
             btn.querySelector('.heart-icon').textContent = '🤍';
-            btn.style.borderColor = '#eee';
             alert("Offre retirée.");
         }
         localStorage.setItem('wishlist', JSON.stringify(wishlist));
@@ -172,33 +188,19 @@ document.addEventListener('click', (e) => {
 });
 
 /* ==========================================
-   FORMULAIRES ET DIVERS
+   MEGA MENU & FORMULAIRE
    ========================================== */
 
 const applicationForm = document.getElementById('applicationForm');
 if (applicationForm) {
     applicationForm.addEventListener('submit', (e) => {
-        e.preventDefault();
         if (!checkAuth()) {
+            e.preventDefault();
             alert("🔒 Tu dois être connecté pour postuler !");
-            window.location.href = 'connexion.html';
-            return;
         }
-        alert('✅ Candidature envoyée avec succès !');
-        applicationForm.reset();
     });
 }
 
-// Gestion label fichier CV
-const cvInput = document.getElementById('cv');
-if (cvInput) {
-    cvInput.addEventListener('change', (e) => {
-        const txt = e.target.files.length > 0 ? e.target.files[0].name : 'Choisir un fichier';
-        document.querySelector('.file-label .file-text').textContent = txt;
-    });
-}
-
-// Mega menu
 document.querySelectorAll('.sidebar-item').forEach(item => {
     item.addEventListener('mouseenter', function() {
         document.querySelectorAll('.sidebar-item').forEach(si => si.classList.remove('active'));
@@ -207,4 +209,4 @@ document.querySelectorAll('.sidebar-item').forEach(item => {
         const grid = document.getElementById(this.getAttribute('data-target'));
         if(grid) grid.classList.add('active');
     });
-}); 
+});
