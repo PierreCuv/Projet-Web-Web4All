@@ -10,10 +10,10 @@
             <?php endif; ?>
 
             <div class="auth-tabs">
-                <button class="tab-btn active">Connexion</button>
+                <a href="<?= APP_URL ?>/login"    class="tab-btn active">Connexion</a>
+                <a href="<?= APP_URL ?>/register" class="tab-btn">Inscription</a>
             </div>
 
-            <!-- Formulaire de connexion PHP -->
             <form method="POST" action="<?= APP_URL ?>/login" class="auth-form active">
                 <?= \Core\CSRF::field() ?>
                 <h2>Ravi de vous revoir</h2>

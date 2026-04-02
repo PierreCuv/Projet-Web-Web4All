@@ -54,4 +54,58 @@ class AuthController extends Controller
         Auth::logout();
         $this->redirectWithFlash('/', 'success', 'Vous êtes déconnecté.');
     }
+
+
+public function showRegister(): void
+{
+    if (Auth::isLoggedIn()) $this->redirect('/');
+    $this->view->render('auth/register', [
+        'title' => 'Inscription – ' . APP_NAME,
+        'error' => Session::getFlash('error'),
+    ]);
+}
+
+public function register(): void
+{
+    CSRF::verify();
+
+    $prenom   = $this->input('prenom');
+    $nom      = $this->input('nom');
+    $email    = $this->input('email');
+    $password = $this->input('password');
+    $confirm  = $this->input('password_confirm');
+
+    // Validation basique
+    if (empty($prenom) || empty($nom) || empty($email) || empty($password)) {
+        Session::flash('error', 'Veuillez remplir tous les champs.');
+        $this->redirect('/register');
+    }
+
+    if ($password !== $confirm) {
+        Session::flash('error', 'Les mots de passe ne correspondent pas.');
+        $this->redirect('/register');
+    }
+
+    if (strlen($password) < 8) {
+        Session::flash('error', 'Le mot de passe doit contenir au moins 8 caractères.');
+        $this->redirect('/register');
+    }
+
+    // Vérifier si l'email existe déjà
+    if ($this->userModel->findByEmail($email)) {
+        Session::flash('error', 'Cet email est déjà utilisé.');
+        $this->redirect('/register');
+    }
+
+    // Créer l'utilisateur (rôle étudiant par défaut)
+    $this->userModel->createWithPassword([
+    'prenom'   => $prenom,
+    'nom'      => $nom,
+    'email'    => $email,
+    'password' => $password,  // le hash est fait dans le modèle, ne pas le faire ici
+    'role'     => 'etudiant',
+]);
+
+    $this->redirectWithFlash('/login', 'success', 'Compte créé ! Vous pouvez vous connecter.');
+}
 }
