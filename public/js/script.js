@@ -6,104 +6,189 @@ const cards = document.querySelectorAll('.offre-card');
 const overlay = document.getElementById('overlay');
 let expandedCard = null;
 let originalCardState = null;
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("JS Web4All chargé et prêt !");
 
-function expandCard(card) {
-    // Sécurité : ne pas animer si déjà ouvert ou si c'est la vue "Détail" (statique)
-    if (expandedCard || card.classList.contains('static-card')) return;
-    
-    const rect = card.getBoundingClientRect();
-    originalCardState = {
-        element: card,
-        position: card.style.position,
-        top: card.style.top,
-        left: card.style.left,
-        width: card.style.width,
-        height: card.style.height,
-        transform: card.style.transform,
-        zIndex: card.style.zIndex,
-        transition: card.style.transition
-    };
+    const cards = document.querySelectorAll('.offre-card');
+    const overlay = document.getElementById('overlay');
+    let expandedCard = null;
+    let originalCardState = null;
 
-    // Préparation de l'animation
-    card.style.transition = 'none';
-    card.style.position = 'fixed';
-    card.style.top = rect.top + 'px';
-    card.style.left = rect.left + 'px';
-    card.style.width = rect.width + 'px';
-    card.style.height = rect.height + 'px';
-    card.style.margin = '0';
-    card.style.zIndex = '1001';
-    
-    void card.offsetHeight; // Force le reflow
-    
-    card.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
-    if(overlay) overlay.classList.add('active');
-    expandedCard = card;
+    function expandCard(card) {
+        if (expandedCard || card.classList.contains('static-card')) return;
+        console.log("Ouverture de la carte...");
 
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            card.classList.add('expanded');
-        });
-    });
-}
+        const rect = card.getBoundingClientRect();
+        originalCardState = {
+            element: card,
+            position: card.style.position,
+            top: card.style.top,
+            left: card.style.left,
+            width: card.style.width,
+            height: card.style.height
+        };
 
-function closeCard() {
-    if (!expandedCard || !originalCardState) return;
-    
-    const card = expandedCard;
-    card.classList.remove('expanded');
-    if(overlay) overlay.classList.remove('active');
+        card.style.transition = 'none';
+        card.style.position = 'fixed';
+        card.style.top = rect.top + 'px';
+        card.style.left = rect.left + 'px';
+        card.style.width = rect.width + 'px';
+        card.style.height = rect.height + 'px';
+        card.style.zIndex = '2000';
+        
+        void card.offsetHeight;
+        
+        card.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        if(overlay) overlay.classList.add('active');
+        expandedCard = card;
+        card.classList.add('expanded');
+    }
 
-    // On attend la fin de l'animation CSS pour reset les styles inline
-    setTimeout(() => {
-        if (originalCardState && originalCardState.element === card) {
-            card.style.position = originalCardState.position || '';
-            card.style.top = originalCardState.top || '';
-            card.style.left = originalCardState.left || '';
-            card.style.width = originalCardState.width || '';
-            card.style.height = originalCardState.height || '';
-            card.style.transform = originalCardState.transform || '';
-            card.style.zIndex = originalCardState.zIndex || '';
-            card.style.transition = originalCardState.transition || '';
-            card.style.margin = '';
+    function closeCard() {
+        if (!expandedCard) return;
+        console.log("Fermeture de la carte...");
+        
+        const card = expandedCard;
+        card.classList.remove('expanded');
+        if(overlay) overlay.classList.remove('active');
+
+        // On force le retour aux positions d'origine APRÈS l'anim
+        setTimeout(() => {
+            card.style.position = '';
+            card.style.top = '';
+            card.style.left = '';
+            card.style.width = '';
+            card.style.height = '';
+            card.style.zIndex = '';
+            card.style.transition = '';
             
             expandedCard = null;
             originalCardState = null;
-        }
-    }, 600);
-}
+            console.log("Styles réinitialisés.");
+        }, 600);
+    }
 
-// Clic sur une carte pour l'ouvrir
-cards.forEach(card => {
-    card.addEventListener('click', (e) => {
-        if (card.classList.contains('static-card')) return;
-        
-        // Empêcher l'ouverture si on clique sur un bouton ou le coeur
-        if (e.target.closest('.btn-postuler') || 
-            e.target.closest('.btn-apply-quick') || 
-            e.target.closest('.add-wishlist') ||
-            e.target.closest('.btn')) {
-            return; 
-        }
-        
-        if (card.classList.contains('expanded')) return;
-        expandCard(card);
+    // Gestion des clics sur les cartes
+    cards.forEach(card => {
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('.btn') || e.target.closest('.add-wishlist') || card.classList.contains('static-card')) {
+                return;
+            }
+            expandCard(card);
+        });
     });
-});
 
-// Fermeture au clic sur l'overlay OU n'importe où ailleurs que la carte
-document.addEventListener('click', (e) => {
-    if (expandedCard) {
-        // Si le clic n'est PAS sur la carte ouverte ET n'est PAS un bouton qui l'a ouverte
-        if (!expandedCard.contains(e.target) && !e.target.closest('.offre-card')) {
+    // Clic n'importe où ailleurs pour fermer
+    document.addEventListener('click', (e) => {
+        if (expandedCard && !expandedCard.contains(e.target)) {
             closeCard();
         }
-    }
-});
+    });
 
-// Fermeture avec la touche Échap
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && expandedCard) closeCard();
+    // Touche Echap
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeCard();
+    });
+
+    /* --- GESTION FICHIERS --- */
+    document.addEventListener('change', (e) => {
+        if (e.target.type === 'file') {
+            const label = e.target.parentElement.querySelector('.file-text');
+            if (label) label.textContent = e.target.files[0].name;
+        }
+    });
+});
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("JS Web4All chargé et prêt !");
+
+    const cards = document.querySelectorAll('.offre-card');
+    const overlay = document.getElementById('overlay');
+    let expandedCard = null;
+    let originalCardState = null;
+
+    function expandCard(card) {
+        if (expandedCard || card.classList.contains('static-card')) return;
+        console.log("Ouverture de la carte...");
+
+        const rect = card.getBoundingClientRect();
+        originalCardState = {
+            element: card,
+            position: card.style.position,
+            top: card.style.top,
+            left: card.style.left,
+            width: card.style.width,
+            height: card.style.height
+        };
+
+        card.style.transition = 'none';
+        card.style.position = 'fixed';
+        card.style.top = rect.top + 'px';
+        card.style.left = rect.left + 'px';
+        card.style.width = rect.width + 'px';
+        card.style.height = rect.height + 'px';
+        card.style.zIndex = '2000';
+        
+        void card.offsetHeight;
+        
+        card.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        if(overlay) overlay.classList.add('active');
+        expandedCard = card;
+        card.classList.add('expanded');
+    }
+
+    function closeCard() {
+        if (!expandedCard) return;
+        console.log("Fermeture de la carte...");
+        
+        const card = expandedCard;
+        card.classList.remove('expanded');
+        if(overlay) overlay.classList.remove('active');
+
+        // On force le retour aux positions d'origine APRÈS l'anim
+        setTimeout(() => {
+            card.style.position = '';
+            card.style.top = '';
+            card.style.left = '';
+            card.style.width = '';
+            card.style.height = '';
+            card.style.zIndex = '';
+            card.style.transition = '';
+            
+            expandedCard = null;
+            originalCardState = null;
+            console.log("Styles réinitialisés.");
+        }, 600);
+    }
+
+    // Gestion des clics sur les cartes
+    cards.forEach(card => {
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('.btn') || e.target.closest('.add-wishlist') || card.classList.contains('static-card')) {
+                return;
+            }
+            expandCard(card);
+        });
+    });
+
+    // Clic n'importe où ailleurs pour fermer
+    document.addEventListener('click', (e) => {
+        if (expandedCard && !expandedCard.contains(e.target)) {
+            closeCard();
+        }
+    });
+
+    // Touche Echap
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeCard();
+    });
+
+    /* --- GESTION FICHIERS --- */
+    document.addEventListener('change', (e) => {
+        if (e.target.type === 'file') {
+            const label = e.target.parentElement.querySelector('.file-text');
+            if (label) label.textContent = e.target.files[0].name;
+        }
+    });
 });
 
 /* ==========================================
