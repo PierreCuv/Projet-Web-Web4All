@@ -65,7 +65,6 @@ function closeCard() {
 
 cards.forEach(card => {
     card.addEventListener('click', (e) => {
-        // Empêcher l'ouverture si on clique sur un bouton ou le coeur
         if (e.target.closest('.btn-postuler') || 
             e.target.closest('.btn-apply-quick') || 
             e.target.closest('.add-wishlist')) {
@@ -91,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const authNavItem = document.querySelector('.nav-auth');
 
     if (isLoggedIn) {
-        // 1. Changer le bouton Connexion en Déconnexion
         if (authNavItem) {
             authNavItem.innerHTML = `<a href="#" id="logout-btn" class="btn btn-secondary btn-small">Déconnexion</a>`;
             document.getElementById('logout-btn').addEventListener('click', (e) => {
@@ -103,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // 2. Ajouter le bouton "Publier" pour Entreprises et Pilotes
         if (role === 'entreprise' || role === 'pilote') {
             const createLi = document.createElement('li');
             createLi.innerHTML = `<a href="creer-offre.html" class="nav-link create-link" style="color: #FF6B35; font-weight: bold;">+ Publier</a>`;

@@ -26,21 +26,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-// Dans ton fichier auth.js, lors de la soumission du formulaire :
 const loginForm = document.getElementById('login-form');
 if(loginForm) {
     loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        // Simulation d'une réponse positive du serveur PHP
+        e.preventDefault();   
         localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('userName', 'Ted'); // Optionnel
+        localStorage.setItem('userName', 'Ted'); 
         
         alert("Connexion réussie !");
         window.location.href = 'index.html';
     });
 }
-// Dans auth.js, dans la partie soumission du formulaire d'inscription :
+
 const registerForm = document.getElementById('register-form');
 if (registerForm) {
     registerForm.addEventListener('submit', (e) => {
@@ -48,8 +45,6 @@ if (registerForm) {
         
         const role = document.getElementById('reg-role').value;
         const nom = document.getElementById('reg-nom').value;
-
-        // On stocke le rôle en plus de l'état de connexion
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('userRole', role);
         localStorage.setItem('userName', nom);

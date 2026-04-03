@@ -126,7 +126,7 @@ a:hover {
 
 .hero {
     min-height: 80vh;
-    padding: 0; /* Important : on enlève les paddings */
+    padding: 0; 
     background: linear-gradient(135deg, #dce6f0 0%, #b8cfe0 100%);
     overflow: hidden;
     display: flex;
@@ -134,14 +134,14 @@ a:hover {
 
 .hero-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 50% / 50% exact */
+    grid-template-columns: 1fr 1fr; 
     width: 100%;
     margin: 0;
     gap: 0;
 }
 
 .hero-content {
-    /* On simule le container pour que le texte ne colle pas au bord gauche */
+   
     padding-left: calc((100vw - 1200px) / 2 + 2rem); 
     padding-right: 5rem;
     display: flex;
@@ -151,7 +151,7 @@ a:hover {
 
 .hero-video-wrapper {
     position: relative;
-    height: 100%; /* Prend toute la hauteur du parent .hero */
+    height: 100%; 
     width: 100%;
     overflow: hidden;
 }
@@ -159,19 +159,19 @@ a:hover {
 .hero-video {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Remplit tout le cadre sans déformer */
+    object-fit: cover; 
     display: block;
     
-    /* Fusion des couleurs avec ton fond bleu */
+   
     mix-blend-mode: multiply;
     opacity: 0.9;
 
-    /* Dégradé pour fondre le bord gauche de la vidéo dans le bleu du texte */
+  
     mask-image: linear-gradient(to left, black 85%, transparent 100%);
     -webkit-mask-image: linear-gradient(to left, black 85%, transparent 100%);
 }
 
-/* Ajustement pour les petits écrans (tablettes/écrans moins larges) */
+
 @media (max-width: 1240px) {
     .hero-content {
         padding-left: 2rem;
@@ -292,7 +292,6 @@ section {
     border-radius: 12px;
     padding: 2rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    /* Modif ici : transition sur 'all' pour capturer le passage en fixed */
     transition: transform 0.3s, box-shadow 0.3s, all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -774,7 +773,7 @@ section {
     color: white !important;
 }
 
-/* Overlay avec flou */
+
 .overlay {
     position: fixed;
     top: 0;
@@ -808,7 +807,6 @@ section {
     margin: 0 !important;
     padding: 3rem !important;
     overflow-y: auto;
-    /* On ajoute une transition sur TOUT pour que le mouvement soit fluide */
     transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
 }
 
@@ -967,7 +965,6 @@ section {
         gap: 1rem;
     }
 
-    /* Hero responsive : empilé sur mobile */
     .hero-layout {
         grid-template-columns: 1fr;
         gap: 2.5rem;
@@ -1139,24 +1136,22 @@ section {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-/* Alignement spécifique pour le bouton dans la nav */
+
 .nav-menu {
     display: flex;
-    align-items: center; /* Aligne le texte et le bouton sur la même ligne */
+    align-items: center; 
     gap: 1.5rem;
 }
 
 .nav-auth {
-    margin-left: 0.5rem; /* Un peu d'air après le lien Légal */
+    margin-left: 0.5rem; 
 }
 
-/* On s'assure que le bouton ne soit pas trop massif dans la nav */
 .nav-auth .btn {
     padding: 0.5rem 1.2rem !important;
     font-size: 0.9rem !important;
 }
 
-/* Pour le responsive mobile */
 @media (max-width: 768px) {
     .nav-menu {
         flex-direction: column;
@@ -1173,7 +1168,7 @@ section {
         margin: 0 auto;
     }
 }
-/* Style pour le lien de création d'offre dans la nav */
+
 .nav-link.create-link {
     color: var(--primary-color);
     font-weight: 700;
@@ -1186,9 +1181,8 @@ section {
     background: var(--primary-color);
     color: white;
 }
-/* Style du bouton coeur sur les cartes */
 .offre-card {
-    position: relative; /* Indispensable pour le placement du coeur */
+    position: relative; 
 }
 
 .btn-wishlist {
@@ -1215,7 +1209,7 @@ section {
 }
 
 .btn-wishlist.active .heart-icon {
-    content: '❤️'; /* On peut changer l'émoji en JS */
+    content: '❤️'; 
 }
 
 .heart-icon {
